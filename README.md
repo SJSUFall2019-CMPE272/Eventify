@@ -39,3 +39,5 @@ Nowadays there are many profiles on social media platforms that have inappropria
 
 Technology : Caffe , Spacy
 
+*Awaiting response from professor on two ideas*
+
