@@ -31,7 +31,7 @@ Technology : Python, Node.js, React, HTML, CSS, Express, MongoDB
 ## Title : Profile filtering mechanism for Social media platforms
 Problem :
 
-Nowadays there are many profiles on social media platforms that have inappropriate and abusive content also there have been a few cases of fake profiles which might be flagged as spam and can send phishing links. So it is better for the platforms to eliminated such vulnerable profiles.
+Nowadays there are many profiles on social media platforms that have inappropriate and abusive content. Also, there have been many cases of fake profiles which might be used by spammers to send phishing links. So it is better for the platforms to eliminate such vulnerable profiles.
 
 - Using AI to analyse profile on social networking sites to detect any inappropriate content (NSFW)
 - Can be used to detect anomaly between details provided and profile photo uploaded
