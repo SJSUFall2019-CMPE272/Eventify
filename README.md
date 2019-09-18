@@ -21,3 +21,5 @@ Solution:
 1. A web based platform where one can search a product and get results based on detailed analysis about where the product is cheapest out of multiple store and web based retailers.
 2. Predict the future prices of products based on previous price fluctuations and market trends.
 3. Scrape the internet to find trending keywords about the product and predict the sentiment.
+
+Technology : Python, Node.js, React, HTML, CSS, Express, MongoDB
