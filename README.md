@@ -6,7 +6,9 @@
 4. Akshit Ahuja
 ## *Idea 1*
 ## Title : Intelligent Attendance and In-time tracker
-Description : Tracking and logging movement of people can be a very cumbersome yet crucial task for an organisation whose bottom line depends on the man hours and screentime of its workforce. Our aim is to provide a one stop solution to this by using facial recognition algorithm to keep a log of employees entering and leaving the workspaces.This powerful yet simple tool will enable organisations to keep a check on number and details of attendees in various events and thus help them predict requirement of seats for upcoming events.The same product can be used by educational institutions to keep attendance logs of its students.
+Description : 
+
+Tracking and logging movement of people can be a very cumbersome yet crucial task for an organisation whose bottom line depends on the man hours and screentime of its workforce. Our aim is to provide a one stop solution to this by using facial recognition algorithm to keep a log of employees entering and leaving the workspaces.This powerful yet simple tool will enable organisations to keep a check on number and details of attendees in various events and thus help them predict requirement of seats for upcoming events.The same product can be used by educational institutions to keep attendance logs of its students.
 
 Technology : Use of Face Recognition softwares Open face , IBM watson  and Sensifi
 ## *Idea 2*
@@ -24,3 +26,16 @@ Solution:
 3. Scrape the internet to find trending keywords about the product and predict the sentiment.
 
 Technology : Python, Node.js, React, HTML, CSS, Express, MongoDB
+
+## *Idea 3*
+## Title : Profile filtering mechanism for Social media platforms
+Problem :
+
+Nowadays there are many profiles on social media platforms that have inappropriate and abusive content also there have been a few cases of fake profiles which might be flagged as spam and can send phishing links. So it is better for the platforms to eliminated such vulnerable profiles.
+
+- Using AI to analyse profile on social networking sites to detect any inappropriate content (NSFW)
+- Can be used to detect anomaly between details provided and profile photo uploaded
+- Can also be used to detect slangs used in profile bio
+
+Technology : Caffe , Spacy
+
