@@ -19,6 +19,7 @@ Organizers of all large Conventions,Conferences and Trade Shows face the perenni
 * Backend: Node.js
 * Database: MongoDB (For unstructured data storage like RFID punches), MySQL (For all other data like user details, vendor details, Conference room and speaker details etc.)
 * Hardware: RFID Reader, RFID Tags, Arduino
+* Containerization and Cloud Deployment: Docker, AWS EC2
 
 # Team Member Responsibilities:
 
