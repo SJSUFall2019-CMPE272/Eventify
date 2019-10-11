@@ -20,4 +20,9 @@ Organizers of all large Conventions,Conferences and Trade Shows face the perenni
 * Database: MongoDB (For unstructured data storage like RFID punches), MySQL (For all other data like user details, vendor details, Conference room and speaker details etc.)
 * Hardware: RFID Reader, RFID Tags, Arduino
 
+# Team Member Responsibilities:
 
+* Akshit Ahuja - Data Modelling, Lead Generation APIs, LinkedIn API (Tentative- due to privacy policy)
+* Ayushman Mittal - All backend APIs for the application
+* Chaitanya Naik - All frontend related tasks for web application (for Organizers)
+* Naman Agrawal - All frontend related tasks for mobile application (for Attendees), Push Notifications with speaker details
