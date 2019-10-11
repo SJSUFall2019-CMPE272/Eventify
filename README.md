@@ -1,4 +1,5 @@
-# ProjectGroup-9
+# Event Based Attendance
+
 ## Group Members :
 1. [Naman Agrawal](https://github.com/agrawalnaman)
 2. [Chaitanya Naik](https://github.com/chets619)
@@ -7,7 +8,13 @@
 
 # ABSTRACT : 
 
-Organizers of all large Conventions,Conferences and Trade Shows face the perennial problem of tracking the movement of people inside an event centre for extracting some meaningful insight from it. On the other hand the attendees face the issue of not being informed in real time about the event that is running in a given room on a given location inside the centre .Our motive is to provide a one stop solution to this with an innovative application of RFID devices which will be strategically placed throughout the event centre capturing and tracking each attendee’s activities, The system will generate marketing leads for each stall and speaker ,giving details about how many people spent how much time on a specific stall or a seminar thereby revealing a list of people who are most probable prospective customers for a vendor who hosted a stall/seminar at the convention centre.Attendees will be able to login to the application and signup with their LinkedIn account to get real time details about the people from their connection list who are present in the same room of the event centre and get notifications with details of event centre rooms as they walk through the event centre.
+Organizers of all large Conventions, Conferences and Trade Fairs face the perennial problem of tracking the movement of people between different rooms in an event for extracting meaningful insight from it. Also, in events, attendees tend to get confused due to a large number of events concurrently going on at the location.
+ 
+Our motive is to provide a one-stop solution to this with an innovative application of RFID systems in which readers will be strategically placed throughout the various event rooms capturing and tracking each attendee's activities.
+ 
+Attendees will have a mobile web application that will present real-time details of the entire conference and the ongoing event in the room that he is currently present.
+ 
+After the conclusion of the event, the system will generate a report for the organizers with lead details for each vendor and review the performance of a guest speaker or lecturer. The report will also contain other key details like how many attendees visited a room, how much time they spent in it thereby revealing a list of potential customers for vendors at the event.
 
 # Architecture Diagram:
 
