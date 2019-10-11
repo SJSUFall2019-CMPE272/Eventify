@@ -1,4 +1,4 @@
-# Event Based Attendance
+# Eventify
 
 ## Group Members :
 1. [Naman Agrawal](https://github.com/agrawalnaman)
