@@ -13,6 +13,11 @@ Organizers of all large Conventions,Conferences and Trade Shows face the perenni
 
 ![Project](https://user-images.githubusercontent.com/44868546/66625784-93e90380-ebaa-11e9-9733-1dae0b8a44a2.jpg)
 
-Technology : Use of Face Recognition softwares Open face , IBM watson  and Sensifi
+# Tech stack : 
+
+*Frontend: React/Redux, React Native (Mobile app)
+*Backend: NodeJS
+*Database: MongoDB (For unstructured data storage like RFID punches), MySQL (For all other data like user details, vendor details, Conference room and speaker details etc.)
+*Hardware: RFID Reader, RFID Tags, Arduino
 
 
