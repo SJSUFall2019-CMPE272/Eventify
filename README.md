@@ -16,7 +16,7 @@ Organizers of all large Conventions,Conferences and Trade Shows face the perenni
 # Tech stack : 
 
 * Frontend: React/Redux, React Native (Mobile app)
-* Backend: NodeJS
+* Backend: Node.js
 * Database: MongoDB (For unstructured data storage like RFID punches), MySQL (For all other data like user details, vendor details, Conference room and speaker details etc.)
 * Hardware: RFID Reader, RFID Tags, Arduino
 
