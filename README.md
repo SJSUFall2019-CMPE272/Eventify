@@ -1,9 +1,9 @@
 # ProjectGroup-9
 ## Group Members :
-1. Naman Agrawal
-2. Chaitanya Naik
-3. Ayushman Mittal
-4. Akshit Ahuja
+1. [Naman Agrawal](https://github.com/agrawalnaman)
+2. [Chaitanya Naik](https://github.com/chets619)
+3. [Ayushman Mittal](https://github.com/ayushman264)
+4. [Akshit Ahuja](https://github.com/ahuja101992)
 
 # ABSTRACT : 
 
