@@ -38,18 +38,18 @@ After the conclusion of the event, the system will generate a report for the org
 # Design Thinking
 ## Personas
 1. Admin: Admin's responsibilities include:
-  * Creating access credentials for event organizers
-  * Providing RFID reader machines and RFID tags based on expected number of attendees and number of individual concurrent event rooms/stalls.
-  * Provide/Sell generated leads to various vendors.
+   * Creating access credentials for event organizers
+   * Providing RFID reader machines and RFID tags based on expected number of attendees and number of individual concurrent event rooms/stalls.
+   * Provide/Sell generated leads to various vendors.
 
 2. Event Organizer: Event Organizer will be responsible for:
-  * Register attendee/vendor/speaker details.
-  * Mapping RFID tags to attendees.
-  * Mapping stalls and conference/event rooms to RFID readers.
-  * Add event descriptions that will be visible to attendees.
+   * Register attendee/vendor/speaker details.
+   * Mapping RFID tags to attendees.
+   * Mapping stalls and conference/event rooms to RFID readers.
+   * Add event descriptions that will be visible to attendees.
  
 3. Event Attendees: Event attendees will be able to view event/speaker details.
 
 ## Hill Statement
-* At the end of every event, data will be processed and leads will be generated for every individual vendor.
-* At the same time, a report will be generated for each speaker which will depict how well the speaker was able to resonate with the audience.
+   * At the end of every event, data will be processed and leads will be generated for every individual vendor.
+   * At the same time, a report will be generated for each speaker which will depict how well the speaker was able to resonate with the audience.
