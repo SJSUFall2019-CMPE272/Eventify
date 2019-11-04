@@ -34,3 +34,18 @@ After the conclusion of the event, the system will generate a report for the org
 * Ayushman Mittal - All backend APIs for the application
 * Chaitanya Naik - All frontend related tasks for web application (for Organizers)
 * Naman Agrawal - All frontend related tasks for mobile application (for Attendees), Push Notifications with speaker details
+
+# Design Thinking
+## Personas
+* Admin: Admin's responsibilities include:
+ 1. Creating access credentials for event organizers
+ 2. Providing RFID reader machines and RFID tags based on expected number of attendees and number of individual concurrent event rooms/stalls.
+ 3. Provide/Sell generated leads to various vendors.
+
+* Event Organizer: Event Organizer will be responsible for:
+ 1. Register attendee/vendor/speaker details.
+ 2. Mapping RFID tags to attendees.
+ 3. Mapping stalls and conference/event rooms to RFID readers.
+ 4. Add event descriptions that will be visible to attendees.
+ 
+* Event Attendees: Event attendees will be able to view event/speaker details.
