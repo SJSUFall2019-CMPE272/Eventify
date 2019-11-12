@@ -9,17 +9,17 @@ cursor = dbConn.cursor()
 
 device = 'COM3' #this will have to be changed to the serial port you are using
 try:
-  print "Trying...",device 
+  print ("Trying...",device) 
   arduino = serial.Serial(device, 9600) 
 except: 
-  print "Failed to connect on",device
+  print ("Failed to connect on",device)
 while True:
     time.sleep(2)
     try:
         data=arduino.readline()
-        print data
+        print (data)
         pieces=data.split(" ")
-        print pieces
+        print (pieces)
         try:
             cursor=dbConn.cursor()
 
@@ -27,10 +27,10 @@ while True:
             dbConn.commit()
             cursor.close()
         except MySQLdb.IntegrityError:
-            print "failed to insert data"
+            print ("failed to insert data")
         finally:
             cursor.close()
     except:
-        print "Processing"
+        print ("Processing")
     
             
