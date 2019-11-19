@@ -6,7 +6,7 @@ from pymongo import MongoClient
 #dbConn = MySQLdb.connect("localhost","root","","rfid_scanner") or die ("could not connect to database")
 #open a cursor to the database
 #cursor = dbConn.cursor()
-client = MongoClient("mongodb+srv://root:root@grubhub-b4ptc.mongodb.net/grubhub?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://root:root@cluster0-1enyv.mongodb.net/test?retryWrites=true&w=majority")
 #pprint(client.mflix)
 db = client.get_database('Eventify')
 rfid_collection= db.rfid_tags
@@ -33,11 +33,12 @@ while True:
             }
             rfid_collection.insert_one(new_rfid)
             print("Inserted, new Count", rfid_collection.count_documents({}))
-            clients.close()
+            #client.close()
         except :
             print ("failed to insert data")
         finally:
-            clients.close()
+            print("done")
+            #client.close()
     except:
         print ("Processing")
     
