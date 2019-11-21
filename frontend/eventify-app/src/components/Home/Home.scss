@@ -1,0 +1,26 @@
+@import '../../App.scss';
+
+.home-wrapper {
+    height: 100%;
+
+    .home {
+        &-headbar {
+            height: 7%;
+            justify-content: space-evenly;
+            background-color: $hoverColor;
+            color: white;
+
+            .bar-tabs:hover {
+                background-color: $bgColor;
+            }
+        }
+
+        &-container {
+            height: 93%;
+
+            & > div {
+                height: 100%;
+            }
+        }
+    }
+}

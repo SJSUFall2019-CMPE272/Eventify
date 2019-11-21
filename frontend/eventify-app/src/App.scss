@@ -1,0 +1,27 @@
+$bgColor: rgb(52, 60, 73);
+$hoverColor: rgb(72, 84, 102);
+
+
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.content {
+    height: 92vh;
+    overflow-x: hidden;
+}
+
+.pad-around {
+    padding: 0 15px;
+}
+
+.full-height {
+    height: 100%;
+}

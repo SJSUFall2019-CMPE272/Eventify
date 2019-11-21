@@ -1,0 +1,33 @@
+@import '../../App.scss';
+
+.navbar-wrapper.flex {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    height: 8vh;
+    background: $bgColor;
+    justify-content: space-between;
+    padding-right: 15px;
+    color: #fff;
+    z-index: 99;
+    .logo {
+        height: 100%;
+        width: 20vw;
+        img {
+            height: 100%;
+        }
+    }
+
+    .login-container {
+        height: 100%;
+        .login-item {
+            padding: 0 15px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            height: 100%;
+            &:hover {
+                background: $hoverColor;
+            }
+        }
+    }
+}
