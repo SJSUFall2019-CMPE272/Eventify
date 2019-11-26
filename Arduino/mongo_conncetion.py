@@ -3,7 +3,7 @@ from pymongo import MongoClient
 # pprint library is used to make the output look more pretty
 from pprint import pprint
 # connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
-client = MongoClient("mongodb+srv://root:root@grubhub-b4ptc.mongodb.net/grubhub?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://root:root@cluster0-1enyv.mongodb.net/test?retryWrites=true&w=majority")
 #pprint(client.mflix)
 db = client.get_database('Eventify')
 rfid_collection= db.rfid_tags
