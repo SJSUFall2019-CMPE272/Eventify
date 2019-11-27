@@ -1,12 +1,31 @@
 $bgColor: rgb(52, 60, 73);
 $hoverColor: rgb(72, 84, 102);
+$lightBlue:rgb(6,225,205);
+$midBlue: rgb(21,193,217);
+$darkBlue: rgb(39,157,230);
 
+.content {
+    background-image: url('./assets/images/appbg.jpg');
+    background-size: cover;
+}
 
+.screen-wrapper {
+    padding: 15px;
+}
+
+.card {
+    max-height: calc(92vh - 30px);
+    overflow: auto;
+}
 
 .flex {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.hidden {
+    display: none;
 }
 
 .pointer {
@@ -24,4 +43,24 @@ $hoverColor: rgb(72, 84, 102);
 
 .full-height {
     height: 100%;
+}
+
+.btn {
+    text-decoration: none;
+    color: white;
+    padding: 10px 30px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom: 4px solid rgba(0,0,0,0.4);
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+    font-weight: 600;
+    &-primary {
+        background: linear-gradient($lightBlue 0%, $darkBlue 100%);
+        &:hover {
+            background-color: $hoverColor;
+            border-color: $bgColor;
+        }
+    }
 }
