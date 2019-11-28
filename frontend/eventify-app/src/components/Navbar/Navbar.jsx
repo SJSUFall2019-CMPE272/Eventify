@@ -77,7 +77,7 @@ class Navbar extends Component {
 		}
     return (
       <div className="navbar-wrapper flex">
-        <div>{redirection}</div>
+        {redirection}
         <div className="logo">
           <img src="images/logo.png" alt="logo" />
         </div>
