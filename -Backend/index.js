@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
 let cookieParser = require('cookie-parser');
 app.use(cookieParser()); 
-const port = 3000;
+const port = 5000;
 
 const Organizer = require("./src/models/OrganizerSchema");
 const Vendor = require("./src/models/VendorSchema");
@@ -58,10 +58,10 @@ app.listen(port, () => {
 
 //login for admin and organizers
 app.post('/login', function(req,res){   
-
+console.log(req.body.email);
     Organizer.findOne({ email: req.body.email }).then(organizer => {
         if (!organizer) {
-            return res.status(400).json({message:"Account Not Found"});
+            return res.json({authFlag:false, message:"Invalid Login Credentials"});
         }
         else{
             Bcrypt.compare(req.body.password, organizer.password).then(isMatch => {
@@ -72,7 +72,7 @@ app.post('/login', function(req,res){
                      if(organizer.type==="Organizer"){
                         res.cookie("organizer", organizer.email, {maxAge: 360000});
                      }
-                    res.status(200).json({
+                    res.json({
                          authFlag: true,
                          message: "",
                          first_name: organizer.first_name,
@@ -81,7 +81,7 @@ app.post('/login', function(req,res){
                          type: organizer.type
                     });
                  }else{
-                     res.json({authFlag:false, message:"Incorrect Email/Password"});
+                     res.json({authFlag:false, message:"Invalid Login Credentials"});
                  }
             }).catch(err => res.json(err));
         } 
@@ -129,6 +129,22 @@ app.post('/addEvent', function(req,res){
         }
     })
 }); 
+
+
+//admin delete event
+app.delete('/deleteEvent', function(req,res){   
+    Organizer.findOneAndDelete({ email: req.body.email }).then(organizer => {
+        if (!organizer) {
+        return res.json({message:"Email Not found in database"});
+        } 
+        else{
+            res.json({message:"Deleted"});
+        }
+    }).catch(err =>{
+        console.log("Error deleting record: "+err);
+    })
+}); 
+
 
 //admin get events
 app.get('/events', function(req,res){
