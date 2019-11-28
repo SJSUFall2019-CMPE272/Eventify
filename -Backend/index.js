@@ -130,6 +130,22 @@ app.post('/addEvent', function(req,res){
     })
 }); 
 
+
+//admin delete event
+app.delete('/deleteEvent', function(req,res){   
+    Organizer.findOneAndDelete({ email: req.body.email }).then(organizer => {
+        if (!organizer) {
+        return res.json({message:"Email Not found in database"});
+        } 
+        else{
+            res.json({message:"Deleted"});
+        }
+    }).catch(err =>{
+        console.log("Error deleting record: "+err);
+    })
+}); 
+
+
 //admin get events
 app.get('/events', function(req,res){
     Organizer.find({}).then(organizer =>{
