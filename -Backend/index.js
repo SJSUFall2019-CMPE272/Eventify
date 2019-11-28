@@ -95,7 +95,7 @@ app.post('/addEvent', function(req,res){
     Organizer.findOne({ email: req.body.email }).then(organizer => {
         let password=req.body.password;
         if (organizer) {
-        return res.status(500).json({message:"Email Already Exists in Database"});
+        return res.json({message:"Email Already Exists in Database"});
         } 
         else{
             Bcrypt.genSalt(10, (err, salt) => {
@@ -119,7 +119,7 @@ app.post('/addEvent', function(req,res){
 
                 organizer.save().then(()=>{
                     console.log("Event inserted successfully");
-                    res.status(200).json({message:"Event inserted successfully"});
+                    res.json({auth:true,message:"Event inserted successfully"});
                 }).catch(err=>{
                     console.log("Error insereting record: "+err);
                 });
