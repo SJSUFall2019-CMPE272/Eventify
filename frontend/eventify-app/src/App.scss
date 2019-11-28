@@ -1,8 +1,9 @@
 $bgColor: rgb(52, 60, 73);
 $hoverColor: rgb(72, 84, 102);
-$lightBlue:rgb(6,225,205);
-$midBlue: rgb(21,193,217);
-$darkBlue: rgb(39,157,230);
+$lightBlue:#06e1cd;
+$midBlue: #15c1d9;
+$darkBlue: #279de6;
+$horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,217,1) 50%, rgba(39,157,230,1) 100%);
 
 .content {
     background-image: url('./assets/images/appbg.jpg');
