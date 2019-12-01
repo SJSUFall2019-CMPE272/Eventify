@@ -90,6 +90,13 @@ console.log(req.body.email);
 }); 
 
 
+app.post('/logout', function(req,res){   
+    res.clearCookie('admin');
+    res.clearCookie('organizer');
+    console.log("cookie deleted");
+    res.json({message:"cookie deleted"});
+}); 
+
 
 //admin add event
 app.post('/addEvent', function(req,res){   

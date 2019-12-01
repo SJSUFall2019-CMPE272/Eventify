@@ -39,6 +39,7 @@ class Navbar extends Component {
       email:this.state.email,
          password:this.state.password
     };
+    //axios.defaults.withCredentials = true;
     axios
         .post("http://localhost:5000/login", data)
       .then((response) => 
@@ -63,6 +64,19 @@ class Navbar extends Component {
           sessionStorage.setItem('email', response.data.email_id);
         }
   
+      }
+      
+      );
+  };
+
+  onLogout = e =>{
+    sessionStorage.clear();
+
+    axios
+        .post("http://localhost:5000/logout")
+      .then((response) => 
+      {
+        console.log(response);
       }
       
       );
@@ -101,7 +115,7 @@ class Navbar extends Component {
             (this.props.history.location.pathname != "/" ? "" : "hidden")
           }
         >
-          <div className="login-item flex ">Logout</div>
+          <div className="login-item flex " onClick={e=>this.onLogout(e)}>Logout</div>
         </div>
 
         <Modal show={this.state.show} onHide={this.handleClose} centered>
