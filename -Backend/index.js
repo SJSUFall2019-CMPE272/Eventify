@@ -284,6 +284,12 @@ app.post('/addUser', function(req,res){
         return res.status(500).json({message:"User with given email id already exists"});
         } 
         else{
+            Bcrypt.genSalt(10, (err, salt) => {
+                if (err) throw err;
+                Bcrypt.hash(req.body.password, salt, (err, hash) => {
+                    console.log("hash"+hash);
+                if (err) throw err;
+                password = hash;
             const user = new User({
                 "organizer_id":req.body.organizer_id, 
                 "event_name":req.body.event_name,
@@ -291,6 +297,7 @@ app.post('/addUser', function(req,res){
                 "last_name":req.body.last_name,
                 "company_name":req.body.company_name, 
                 "email":req.body.email,
+                "password":password,
                 "phone_num":req.body.phone_num,
                 "rfid_id":""
             });
@@ -301,7 +308,91 @@ app.post('/addUser', function(req,res){
             }).catch(err=>{
                 console.log("Error insereting record: "+err);
             });
+        })
+    });
         }
     })
 }); 
 
+
+//login for users
+app.post('/loginUser', function(req,res){   
+    console.log(req.body.email);
+        User.findOne({ email: req.body.email }).then(user => {
+            if (!user) {
+                return res.json({authFlag:false, message:"Invalid Login Credentials"});
+            }
+            else{
+                Bcrypt.compare(req.body.password, user.password).then(isMatch => {
+                     if (isMatch) {
+                        res.json({
+                             authFlag: true,
+                             message: "Login Successful",
+                             first_name: user.first_name,
+                             last_name: user.last_name,
+                             email_id: user.email
+                        });
+                     }else{
+                         res.json({authFlag:false, message:"Invalid Login Credentials"});
+                     }
+                }).catch(err => res.json(err));
+            } 
+        })
+    }); 
+
+
+//reset password for organizers and users
+app.post('/resetPassword', function(req,res){   
+    console.log(req.body.email);
+        Organizer.findOne({ email: req.body.email }).then(organizer => {
+            if (!organizer) {
+                //return res.json({authFlag:false, message:"User Not Found"});
+                User.findOne({ email: req.body.email }).then(user => {
+                    if (!user) {
+                        return res.json({message:"User Not Found"});
+                        
+                    }
+                    else{
+                        Bcrypt.compare(req.body.password, user.password).then(isMatch => {
+                            if (isMatch) {
+                               Bcrypt.genSalt(10, (err, salt) => {
+                                   if (err) throw err;
+                                   Bcrypt.hash(req.body.new_password, salt, (err, hash) => {
+                                       if (err) throw err;
+                                       password = hash;
+                                       User.updateOne({email:req.body.email},{
+                                           password:password
+                                       }).then(user =>{
+                                           res.json({message:"Password updated successfully"});
+                                       }).catch(err => res.status(400).json(err));
+                                   })
+                               });
+                           }else{
+                                res.json({message:"Wrong old password"});
+                            }
+                       }).catch(err => res.json(err));
+                    } 
+                })
+            }
+            else{
+                Bcrypt.compare(req.body.password, organizer.password).then(isMatch => {
+                     if (isMatch) {
+                        Bcrypt.genSalt(10, (err, salt) => {
+                            if (err) throw err;
+                            Bcrypt.hash(req.body.new_password, salt, (err, hash) => {
+                                if (err) throw err;
+                                password = hash;
+                                Organizer.updateOne({email:req.body.email},{
+                                    password:password
+                                }).then(organizer =>{
+                                    res.json({message:"Password updated successfully"});
+                                }).catch(err => res.status(400).json(err));
+                            })
+                        });
+                    }else{
+                         res.json({message:"Wrong old password"});
+                     }
+                }).catch(err => res.json(err));
+            } 
+        })
+    }); 
