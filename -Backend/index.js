@@ -254,7 +254,7 @@ app.post('/vendor/update',function(req,res){
         if(!vendor){
             res.json({message:"Vendor Not Found"});
         }else{
-                const venUpdate = new Vendor({
+                Vendor.findOneAndUpdate({email:req.body.email},{
                     first_name: req.body.first_name,
                     last_name: req.body.last_name,
                     company_name:req.body.company_name, 
@@ -262,16 +262,6 @@ app.post('/vendor/update',function(req,res){
                     rfid_reader_id: req.body.rfid_reader_id,
                     vendor_type: req.body.vendor_type,
                     vendor_desc: req.body.vendor_desc
-                    });
-                Vendor.findOneAndUpdate({email:req.body.email},{
-                    first_name:venUpdate.first_name,
-                    last_name:venUpdate.last_name,
-                    company_name:req.body.company_name, 
-                    phone_num:venUpdate.phone_num,
-                    rfid_reader_id:venUpdate.rfid_reader_id,
-                    vendor_type:venUpdate.vendor_type,
-                    vendor_desc:venUpdate.vendor_desc
-    
                 }).then(vendor =>{
                     res.json({message:"Vendor Profile Updated"});
                 }).catch(err => res.status(400).json(err));
