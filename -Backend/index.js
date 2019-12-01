@@ -225,7 +225,7 @@ app.post('/addVendor', function(req,res){
 
             vendor.save().then(()=>{
                 console.log("Vendor added successfully");
-                res.status(200).json({message:"Vendor added successfully"});
+                res.status(200).json({auth:true,message:"Vendor added successfully"});
             }).catch(err=>{
                 console.log("Error insereting record: "+err);
             });

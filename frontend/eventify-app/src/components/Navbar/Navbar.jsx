@@ -12,6 +12,7 @@ class Navbar extends Component {
     show: false,
     email:"",
     password:"",
+    logoutModal:false,
     fail:false,
     login_success_admin:false,
     login_success_org:false
@@ -69,6 +70,14 @@ class Navbar extends Component {
       );
   };
 
+  logoutOpen = e => {
+    this.setState({ logoutModal: true});
+  };
+
+  logoutClose = () => {
+    this.setState({ logoutModal: false });
+  };
+
   onLogout = e =>{
     sessionStorage.clear();
 
@@ -80,6 +89,8 @@ class Navbar extends Component {
       }
       
       );
+      this.logoutClose();
+      this.props.history.push("/");
   };
 
   render() {
@@ -115,7 +126,7 @@ class Navbar extends Component {
             (this.props.history.location.pathname != "/" ? "" : "hidden")
           }
         >
-          <div className="login-item flex " onClick={e=>this.onLogout(e)}>Logout</div>
+          <div className="login-item flex " onClick={e => this.logoutOpen(e)}>Logout</div>
         </div>
 
         <Modal show={this.state.show} onHide={this.handleClose} centered>
@@ -142,6 +153,24 @@ class Navbar extends Component {
           <Modal.Footer>
             <Button variant="primary" onClick={e=>this.onLogin(e)}>
               Login
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal centered show={this.state.logoutModal} onHide={this.logoutClose}>
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Logout
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure you want to logout?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.onLogout} variant="danger" size="sm">
+              Yes
+            </Button>
+            <Button onClick={this.logoutClose} size="sm">
+              No
             </Button>
           </Modal.Footer>
         </Modal>

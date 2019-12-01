@@ -12,6 +12,7 @@ class EditEvent extends Component {
   state = {
     events: {},
     editModal: false,
+    deleteModal: false,
     first_name: "",
     last_name: "",
     email: "",
@@ -19,7 +20,8 @@ class EditEvent extends Component {
     event_name: "",
     event_desc: "",
     event_location: "",
-    date: ""
+    date: "",
+    idSelected: ""
   };
 
   editModalClose = () => {
@@ -64,12 +66,19 @@ class EditEvent extends Component {
        
   };
 
+  deleteOpen = e => {
+    this.setState({ deleteModal: true, idSelected: e.target.value });
+  };
+
+  deleteClose = () => {
+    this.setState({ deleteModal: false });
+  };
 
   onDelete = e =>{
     console.log("delete function call");
     e.preventDefault();
       let data ={
-        email:e.target.value
+        email:this.state.idSelected
       };
       axios
           .post("http://localhost:5000/deleteEvent", data)
@@ -105,7 +114,13 @@ class EditEvent extends Component {
               </Button>
             </td>
             <td>
-              <Button variant="danger" value={currEvent.email} onClick={e=>this.onDelete(e)}>Delete</Button>
+            <Button
+                variant="danger"
+                value={currEvent.email}
+                onClick={e => this.deleteOpen(e)}
+              >
+                Delete
+              </Button>
             </td>
           </tr>
         );
@@ -310,6 +325,24 @@ class EditEvent extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={e=>this.onUpdate(e)}>Update</Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal centered show={this.state.deleteModal} onHide={this.deleteClose}>
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Delete Event
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure you want to delete the event?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.onDelete} variant="danger" size="sm">
+              Yes
+            </Button>
+            <Button onClick={this.deleteClose} size="sm">
+              No
+            </Button>
           </Modal.Footer>
         </Modal>
       </React.Fragment>
