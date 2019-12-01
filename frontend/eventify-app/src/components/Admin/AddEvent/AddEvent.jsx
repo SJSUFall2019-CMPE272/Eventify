@@ -219,9 +219,6 @@ class AddEvent extends Component {
                   onChange={this.handleChange}
                   customInput={<CustomInput />}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Please enter Event Description
-                </Form.Control.Feedback>
               </Col>
             </Form.Group>
 

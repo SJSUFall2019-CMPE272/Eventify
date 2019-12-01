@@ -2,10 +2,42 @@ import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "./EditEvent.scss";
 
 class EditEvent extends Component {
   state = {
-    events: {}
+    events: {},
+    editModal: false,
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_num: "",
+    event_name: "",
+    event_desc: "",
+    event_location: "",
+    date: ""
+  };
+
+  editModalClose = () => {
+    this.setState({ editModal: false });
+  };
+
+  editModalShow = event => {
+    console.log(event);
+    this.setState({
+      editModal: true,
+      first_name: event.first_name,
+      last_name: event.last_name,
+      email: event.email,
+      phone_num: event.phone_num,
+      event_name: event.event_name,
+      event_desc: event.event_desc,
+      event_location: event.event_location,
+      date: event.event_date
+    });
   };
 
   render() {
@@ -23,9 +55,14 @@ class EditEvent extends Component {
             <td>{currEvent.first_name}</td>
             <td>{currEvent.phone_num}</td>
             <td>{currEvent.event_location}</td>
-            <td>{currEvent.event_date}</td>
+            <td>{new Date(currEvent.event_date).toLocaleDateString()}</td>
             <td>
-              <Button variant="primary">Edit</Button>
+              <Button
+                variant="primary"
+                onClick={e => this.editModalShow(currEvent)}
+              >
+                Edit
+              </Button>
             </td>
             <td>
               <Button variant="danger">Delete</Button>
@@ -53,7 +90,7 @@ class EditEvent extends Component {
 
     return (
       <React.Fragment>
-        <div className="tab-content">
+        <div className="tab-content events-wrapper">
           <div className="tab-header">
             <h1>Events</h1>
             <p>
@@ -67,27 +104,179 @@ class EditEvent extends Component {
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          show={this.state.editModal}
+          onHide={this.editModalClose}
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Modal heading
+              Edit Event
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Centered Modal</h4>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-              ac consectetur ac, vestibulum at eros.
-            </p>
+            <p>Edit the details of the selected event</p>
+            <div className="tab-body">
+              <Form noValidate>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    First name
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="First name"
+                      value={this.state.first_name}
+                      onChange={e =>
+                        this.setState({ first_name: e.target.value })
+                      }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter first name.
+                    </Form.Control.Feedback>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    Last name
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Last name"
+                      value={this.state.last_name}
+                      onChange={e =>
+                        this.setState({ last_name: e.target.value })
+                      }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter last name.
+                    </Form.Control.Feedback>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    Email Address
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      plaintext
+                      readOnly
+                      defaultValue={this.state.email}
+                    />
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    Phone Number
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      required
+                      type="number"
+                      placeholder="Phone Number"
+                      value={this.state.phone_num}
+                      onChange={e =>
+                        this.setState({ phone_num: e.target.value })
+                      }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter phone number
+                    </Form.Control.Feedback>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    Event Name
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Event Name"
+                      value={this.state.event_name}
+                      onChange={e =>
+                        this.setState({ event_name: e.target.value })
+                      }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter Event Name
+                    </Form.Control.Feedback>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    Event Description
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      required
+                      as="textarea"
+                      placeholder="Event Description"
+                      rows="3"
+                      value={this.state.event_desc}
+                      onChange={e =>
+                        this.setState({ event_desc: e.target.value })
+                      }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter Event Description
+                    </Form.Control.Feedback>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    Location
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Location"
+                      value={this.state.event_location}
+                      onChange={e =>
+                        this.setState({ event_location: e.target.value })
+                      }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter location
+                    </Form.Control.Feedback>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    Date
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      plaintext
+                      readOnly
+                      defaultValue={new Date(
+                        this.state.date
+                      ).toLocaleDateString()}
+                    />
+                  </Col>
+                </Form.Group>
+              </Form>
+            </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button>Close</Button>
+            <Button onClick={this.updateDetails}>Update</Button>
           </Modal.Footer>
         </Modal>
       </React.Fragment>
     );
   }
+
+  updateDetails = () => {};
 }
 
 export default EditEvent;
