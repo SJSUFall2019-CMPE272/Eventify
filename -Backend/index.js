@@ -156,8 +156,8 @@ app.delete('/deleteEvent', function(req,res){
 //admin get events
 app.get('/events', function(req,res){
     Organizer.find({}).then(organizer =>{
-        if(!organizer){
-            return res.json({message:"No Events Found"});
+        if(!organizer.length){
+            return res.json({message:"No Events Found", result:[]});
         }
         else{
             res.json({message:"Events Found", result:organizer});
@@ -226,7 +226,7 @@ app.post('/addVendor', function(req,res){
                 "phone_num":req.body.phone_num,
                 "vendor_type":req.body.vendor_type,
                 "vendor_desc":req.body.vendor_desc,
-                "rfid_reader_id":req.bosy.rfid_reader_id
+                "rfid_reader_id":req.body.rfid_reader_id
             });
 
             vendor.save().then(()=>{
@@ -241,12 +241,15 @@ app.post('/addVendor', function(req,res){
 
 
 //organizer get vendors
-app.get('/vendor', function(req,res){
-    Vendor.find({organizer_id:req.body.email}).then(vendor =>{
-        if(!vendor){
-            return res.json({message:"No Vendors Found"});
+app.get('/vendor/:email', function(req,res){
+    Vendor.find({organizer_id:req.params.email}).then(vendor =>{
+        if(!vendor.length){
+            console.log("no vendors");
+            return res.json({message:"No Vendors Found", result:[]});
         }
         else{
+            console.log("vendors");
+            console.log(vendor);
             res.json({message:"Vendors Found", result:vendor});
         }
     })
@@ -284,7 +287,7 @@ app.post('/vendor/update',function(req,res){
 });
 
 //organizer delete vendor
-app.delete('/deleteVendor', function(req,res){   
+app.post('/deleteVendor', function(req,res){   
     Vendor.findOneAndDelete({ email: req.body.email }).then(vendor => {
         if (!vendor) {
         return res.json({message:"Email Not found in database"});

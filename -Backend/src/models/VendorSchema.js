@@ -24,7 +24,8 @@ const VendorSchema = new Schema(
       required: true
     },
 	  vendor_type: String,
-	  vendor_desc: String
+    vendor_desc: String,
+    rfid_reader_id: String
   },
   { collection: "vendors" }
 );

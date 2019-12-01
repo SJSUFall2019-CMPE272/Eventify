@@ -187,7 +187,7 @@ class AddVendor extends Component {
               <Col sm={8}>
                 <Form.Control
                   required
-                  as="text"
+                  type="text"
                   placeholder="RFID Reader ID"
                   value={this.state.rfid_reader_id} onChange={e=>this.setState({rfid_reader_id:e.target.value})}
                 />

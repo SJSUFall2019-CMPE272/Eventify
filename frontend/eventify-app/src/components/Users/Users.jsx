@@ -3,9 +3,22 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import "./Users.scss";
 import AddVendor from "./AddVendor";
+import EditVendor from "./EditVendor";
+import axios from 'axios';
 
 class Users extends Component {
-  state = {};
+  state = {
+    vendorList:[]
+  };
+
+
+  componentDidMount() {
+    
+    axios.get("http://localhost:5000/vendor/"+sessionStorage.getItem('email')).then(response => {
+      console.log(response.data.result);
+      this.setState({ vendorList: response.data.result });
+    });
+  }
 
   render() {
     return (
@@ -36,7 +49,9 @@ class Users extends Component {
               </Card>
             </Accordion>
           </div>
-          <div className="col-sm-8 sidebar-content"><AddVendor /></div>
+          <div className="col-sm-8 sidebar-content"><AddVendor /></div><br/>
+          <div className="col-sm-8 sidebar-content"><EditVendor vendorList={this.state.vendorList} /></div>
+          
         </div>
       </div>
     );
