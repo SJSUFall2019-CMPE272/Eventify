@@ -10,7 +10,7 @@ import axios from "axios";
 class Users extends Component {
   state = {
     vendorList: [],
-    sidebarTabs: ["Intro", "Add Vendors", "View Vendors"],
+    sidebarTabs: ["Intro", "Add Vendors", "View Vendors", "Reports"],
     activeTab: 0
   };
 

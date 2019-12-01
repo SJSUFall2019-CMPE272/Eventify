@@ -50,7 +50,30 @@ class EditVendor extends Component {
     this.setState({ deleteModal: true, idSelected: e.target.value });
   };
 
-  onDelete = () => {
+  onUpdate = e =>{
+    e.preventDefault();
+    let data ={
+      first_name:this.state.first_name,
+      last_name:this.state.last_name,
+      email:this.state.email,
+      phone_num:this.state.phone_num,
+      vendor_type:this.state.vendor_type,
+      vendor_desc:this.state.vendor_desc,
+      rfid_reader_id:this.state.rfid_reader_id,
+      company_name:this.state.company_name
+    };
+    console.log("in update function");
+    axios
+        .post("http://localhost:5000/vendor/update", data)
+      .then(response => {
+        console.log(response.data.message);
+        this.editModalClose();
+        window.location.reload(true); 
+    });
+       
+  };
+
+  onDelete = e => {
     console.log("delete function call");
     let data = {
       email: this.state.idSelected
@@ -314,7 +337,7 @@ class EditVendor extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.updateDetails}>Update</Button>
+            <Button onClick={e=>this.onUpdate(e)}>Update</Button>
           </Modal.Footer>
         </Modal>
 
