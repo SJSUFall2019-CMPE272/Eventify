@@ -160,8 +160,8 @@ app.get('/events', function(req,res){
 
 
 //organizer get profile
-app.get('/profile/:email', function(req,res){
-    Organizer.findOne({email:req.params.email}).then(organizer =>{
+app.get('/profile', function(req,res){
+    Organizer.findOne({email:req.body.email}).then(organizer =>{
         if(!organizer){
             return res.json({message:"Profile Not Found"});
         }
@@ -212,11 +212,13 @@ app.post('/addVendor', function(req,res){
             const vendor = new Vendor({
                 "organizer_id":req.body.organizer_id, 
                 "first_name": req.body.first_name, 
-                "last_name":req.body.last_name, 
+                "last_name":req.body.last_name,
+                "company_name":req.body.company_name, 
                 "email":req.body.email,
                 "phone_num":req.body.phone_num,
                 "vendor_type":req.body.vendor_type,
-                "vendor_desc":req.body.vendor_desc
+                "vendor_desc":req.body.vendor_desc,
+                "rfid_reader_id":req.bosy.rfid_reader_id
             });
 
             vendor.save().then(()=>{
@@ -231,8 +233,8 @@ app.post('/addVendor', function(req,res){
 
 
 //organizer get vendors
-app.get('/vendor/:email', function(req,res){
-    Vendor.find({organizer_id:req.params.email}).then(vendor =>{
+app.get('/vendor', function(req,res){
+    Vendor.find({organizer_id:req.body.email}).then(vendor =>{
         if(!vendor){
             return res.json({message:"No Vendors Found"});
         }
@@ -251,6 +253,7 @@ app.post('/vendor/update',function(req,res){
                 const venUpdate = new Vendor({
                     first_name: req.body.first_name,
                     last_name: req.body.last_name,
+                    company_name:req.body.company_name, 
                     phone_num: req.body.phone_num,
                     rfid_reader_id: req.body.rfid_reader_id,
                     vendor_type: req.body.vendor_type,
@@ -259,6 +262,7 @@ app.post('/vendor/update',function(req,res){
                 Vendor.findOneAndUpdate({email:req.body.email},{
                     first_name:venUpdate.first_name,
                     last_name:venUpdate.last_name,
+                    company_name:req.body.company_name, 
                     phone_num:venUpdate.phone_num,
                     rfid_reader_id:venUpdate.rfid_reader_id,
                     vendor_type:venUpdate.vendor_type,
@@ -270,4 +274,33 @@ app.post('/vendor/update',function(req,res){
         }
     })
 });
+
+
+//add user through online form
+app.post('/addUser', function(req,res){   
+    User.findOne({ email: req.body.email }).then(user => {
+        if (user) {
+        return res.status(500).json({message:"User with given email id already exists"});
+        } 
+        else{
+            const user = new User({
+                "organizer_id":req.body.organizer_id, 
+                "event_name":req.body.event_name,
+                "first_name": req.body.first_name, 
+                "last_name":req.body.last_name,
+                "company_name":req.body.company_name, 
+                "email":req.body.email,
+                "phone_num":req.body.phone_num,
+                "rfid_id":""
+            });
+
+            user.save().then(()=>{
+                console.log("User added successfully");
+                res.status(200).json({message:"User added successfully"});
+            }).catch(err=>{
+                console.log("Error insereting record: "+err);
+            });
+        }
+    })
+}); 
 
