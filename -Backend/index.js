@@ -172,7 +172,7 @@ app.get('/profile', function(req,res){
     })
 });
 
-
+//organizer update profile
 app.post('/profile/update',function(req,res){
     Organizer.findOne({email:req.body.email}).then(organizer =>{
         if(!organizer){
@@ -276,6 +276,19 @@ app.post('/vendor/update',function(req,res){
     })
 });
 
+//organizer delete vendor
+app.delete('/deleteVendor', function(req,res){   
+    Vendor.findOneAndDelete({ email: req.body.email }).then(vendor => {
+        if (!vendor) {
+        return res.json({message:"Email Not found in database"});
+        } 
+        else{
+            res.json({message:"Deleted"});
+        }
+    }).catch(err =>{
+        console.log("Error deleting record: "+err);
+    })
+}); 
 
 //add user through online form
 app.post('/addUser', function(req,res){   
@@ -318,27 +331,27 @@ app.post('/addUser', function(req,res){
 //login for users
 app.post('/loginUser', function(req,res){   
     console.log(req.body.email);
-        User.findOne({ email: req.body.email }).then(user => {
-            if (!user) {
-                return res.json({authFlag:false, message:"Invalid Login Credentials"});
-            }
-            else{
-                Bcrypt.compare(req.body.password, user.password).then(isMatch => {
-                     if (isMatch) {
-                        res.json({
-                             authFlag: true,
-                             message: "Login Successful",
-                             first_name: user.first_name,
-                             last_name: user.last_name,
-                             email_id: user.email
-                        });
-                     }else{
-                         res.json({authFlag:false, message:"Invalid Login Credentials"});
-                     }
-                }).catch(err => res.json(err));
-            } 
-        })
-    }); 
+    User.findOne({ email: req.body.email }).then(user => {
+        if (!user) {
+            return res.json({authFlag:false, message:"Invalid Login Credentials"});
+        }
+        else{
+            Bcrypt.compare(req.body.password, user.password).then(isMatch => {
+                    if (isMatch) {
+                    res.json({
+                            authFlag: true,
+                            message: "Login Successful",
+                            first_name: user.first_name,
+                            last_name: user.last_name,
+                            email_id: user.email
+                    });
+                    }else{
+                        res.json({authFlag:false, message:"Invalid Login Credentials"});
+                    }
+            }).catch(err => res.json(err));
+        } 
+    })
+}); 
 
 
 //reset password for organizers and users
@@ -346,11 +359,9 @@ app.post('/resetPassword', function(req,res){
     console.log(req.body.email);
         Organizer.findOne({ email: req.body.email }).then(organizer => {
             if (!organizer) {
-                //return res.json({authFlag:false, message:"User Not Found"});
                 User.findOne({ email: req.body.email }).then(user => {
                     if (!user) {
                         return res.json({message:"User Not Found"});
-                        
                     }
                     else{
                         Bcrypt.compare(req.body.password, user.password).then(isMatch => {
