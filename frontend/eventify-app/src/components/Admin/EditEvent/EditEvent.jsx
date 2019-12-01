@@ -92,7 +92,7 @@ class EditEvent extends Component {
       <React.Fragment>
         <div className="tab-content events-wrapper">
           <div className="tab-header">
-            <h1>Events</h1>
+            <h1 className="header">Events</h1>
             <p>
               A list of events that were added previously can be found here.
             </p>

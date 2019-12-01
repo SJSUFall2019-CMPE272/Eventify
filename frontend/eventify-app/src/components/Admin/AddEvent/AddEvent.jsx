@@ -64,7 +64,7 @@ class AddEvent extends Component {
     return (
       <div className="tab-content">
         <div className="tab-header">
-          <h1>Add Event</h1>
+          <h1 className="header">Add Event</h1>
           <p>
             Here you can add a new event and specify details about the same.
           </p>

@@ -11,6 +11,7 @@ class EditVendor extends Component {
   state = {
     events: {},
     editModal: false,
+    deleteModal: false,
     first_name: "",
     last_name: "",
     company_name: "",
@@ -18,7 +19,8 @@ class EditVendor extends Component {
     phone_num: "",
     vendor_type: "",
     vendor_desc: "",
-    rfid_reader_id: ""
+    rfid_reader_id: "",
+    idSelected: ""
   };
 
   editModalClose = () => {
@@ -40,11 +42,18 @@ class EditVendor extends Component {
     });
   };
 
-  onDelete = e => {
+  deleteClose = () => {
+    this.setState({ deleteModal: false });
+  };
+
+  deleteOpen = e => {
+    this.setState({ deleteModal: true, idSelected: e.target.value });
+  };
+
+  onDelete = () => {
     console.log("delete function call");
-    e.preventDefault();
     let data = {
-      email: e.target.value
+      email: this.state.idSelected
     };
     axios.post("http://localhost:5000/deleteVendor", data).then(response => {
       console.log(response.data.message);
@@ -82,7 +91,7 @@ class EditVendor extends Component {
               <Button
                 variant="danger"
                 value={currVendor.email}
-                onClick={e => this.onDelete(e)}
+                onClick={e => this.deleteOpen(e)}
               >
                 Delete
               </Button>
@@ -114,7 +123,7 @@ class EditVendor extends Component {
       <React.Fragment>
         <div className="tab-content">
           <div className="tab-header">
-            <h1>Vendors</h1>
+            <h1 className="header">Vendors</h1>
             <p>
               A list of vendors that were added previously can be found here.
             </p>
@@ -306,6 +315,25 @@ class EditVendor extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.updateDetails}>Update</Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal centered show={this.state.deleteModal} onHide={this.deleteClose}>
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Delete Vendor
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure you want to delete the vendor?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.onDelete} variant="danger" size="sm">
+              Yes
+            </Button>
+            <Button onClick={this.deleteClose} size="sm">
+              No
+            </Button>
           </Modal.Footer>
         </Modal>
       </React.Fragment>
