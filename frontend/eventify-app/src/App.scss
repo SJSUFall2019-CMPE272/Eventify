@@ -1,0 +1,67 @@
+$bgColor: rgb(52, 60, 73);
+$hoverColor: rgb(72, 84, 102);
+$lightBlue:#06e1cd;
+$midBlue: #15c1d9;
+$darkBlue: #279de6;
+$horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,217,1) 50%, rgba(39,157,230,1) 100%);
+
+.content {
+    background-image: url('./assets/images/appbg.jpg');
+    background-size: cover;
+}
+
+.screen-wrapper {
+    padding: 15px;
+}
+
+.card {
+    max-height: calc(92vh - 30px);
+    overflow: auto;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.content {
+    height: 92vh;
+    overflow-x: hidden;
+}
+
+.pad-around {
+    padding: 0 15px;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.btn {
+    text-decoration: none;
+    color: white;
+    padding: 10px 30px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom: 4px solid rgba(0,0,0,0.4);
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+    font-weight: 600;
+    &-primary {
+        // background: linear-gradient($lightBlue 0%, $darkBlue 100%);
+        &:hover {
+            // background-color: $hoverColor;
+            border-color: $bgColor;
+        }
+    }
+}

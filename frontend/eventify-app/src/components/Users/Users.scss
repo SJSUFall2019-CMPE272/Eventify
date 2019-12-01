@@ -1,0 +1,16 @@
+@import '../../App.scss';
+
+.userhome-wrapper {
+    .accordion-container {
+        flex-direction: row;
+
+        .sidebar {
+            height: 100%;
+            padding: 0;
+
+            &-item {
+                @extend .pointer;
+            }
+        }
+    }
+} 
