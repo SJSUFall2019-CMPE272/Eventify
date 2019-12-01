@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import "./Users.scss";
+import AddVendor from "./AddVendor";
 
 class Users extends Component {
   state = {};
@@ -35,7 +36,7 @@ class Users extends Component {
               </Card>
             </Accordion>
           </div>
-          <div className="col-sm-8 sidebar-content"></div>
+          <div className="col-sm-8 sidebar-content"><AddVendor /></div>
         </div>
       </div>
     );

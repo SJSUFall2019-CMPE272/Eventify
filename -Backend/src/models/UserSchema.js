@@ -1,12 +1,16 @@
 // src/models/OwnerSchemas.js
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const VendorSchema = new Schema(
+const UserSchema = new Schema(
   {
 	organizer_id: {
       type: String,
       required: true
     },
+    event_name: {
+        type: String,
+        required: true
+      },
     first_name: {
       type: String,
       required: true
@@ -19,13 +23,8 @@ const VendorSchema = new Schema(
       unique: true
     },
     phone_num: String,
-    rfid_reader_id: {
-      type: String,
-      required: true
-    },
-	  vendor_type: String,
-	  vendor_desc: String
+    rfid_id: String
   },
-  { collection: "vendors" }
+  { collection: "users" }
 );
-module.exports = Vendor = mongoose.model("Vendor", VendorSchema);
+module.exports = User = mongoose.model("User", UserSchema);

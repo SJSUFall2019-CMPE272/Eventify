@@ -55,10 +55,12 @@ class Navbar extends Component {
           // console.log("testing successful");
           this.handleClose();
           this.setState({login_success_admin:true});
+          sessionStorage.setItem('email', response.data.email_id);
         }
         if(response.data.authFlag ===true && response.data.type==="Organizer"){
           this.handleClose();
           this.setState({login_success_org:true});
+          sessionStorage.setItem('email', response.data.email_id);
         }
   
       }

@@ -123,7 +123,6 @@ app.post('/addEvent', function(req,res){
                 }).catch(err=>{
                     console.log("Error insereting record: "+err);
                 });
-    
                 })
             });
         }
