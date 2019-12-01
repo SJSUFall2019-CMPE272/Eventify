@@ -60,12 +60,14 @@ class Users extends Component {
     }
 
     return (
-      <div className="userhome-wrapper col-md-12 screen-wrapper">
-        <div className="card accordion-container flex">
-          <div className="col-sm-2 sidebar">{renderSidebarTabs}</div>
-          <div className="col-sm-10 sidebar-content">{route}</div>
+      <React.Fragment>
+        <div className="userhome-wrapper col-md-12 screen-wrapper">
+          <div className="card accordion-container flex">
+            <div className="col-sm-2 sidebar">{renderSidebarTabs}</div>
+            <div className="col-sm-10 sidebar-content">{route}</div>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
