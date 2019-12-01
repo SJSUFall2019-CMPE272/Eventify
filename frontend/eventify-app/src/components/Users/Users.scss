@@ -3,14 +3,25 @@
 .userhome-wrapper {
     .accordion-container {
         flex-direction: row;
+        align-items: flex-start;
 
         .sidebar {
             height: 100%;
             padding: 0;
-
-            &-item {
-                @extend .pointer;
+            .list-group-item {
+                &.active {
+                    background: $horizontalGradient;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                }
             }
+            .list-group-item-action:not(.active):hover {
+                background: #eee;
+            }
+        }
+        .sidebar-content {
+            border-left: 1px solid rgba(0,0,0,.125);
+            padding: 15px;
         }
     }
 } 

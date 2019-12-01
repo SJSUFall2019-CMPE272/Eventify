@@ -8,7 +8,7 @@ import axios from "axios";
 class Admin extends Component {
   state = {
     sidebarTabs: ["Intro", "Create Event", "View Events"],
-    activeTab: 2,
+    activeTab: 0,
     eventList: []
   };
 

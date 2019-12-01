@@ -4,54 +4,66 @@ import Card from "react-bootstrap/Card";
 import "./Users.scss";
 import AddVendor from "./AddVendor";
 import EditVendor from "./EditVendor";
-import axios from 'axios';
+import UserHome from "./UserHome";
+import axios from "axios";
 
 class Users extends Component {
   state = {
-    vendorList:[]
+    vendorList: [],
+    sidebarTabs: ["Intro", "Add Vendors", "View Vendors"],
+    activeTab: 0
   };
 
-
   componentDidMount() {
-    
-    axios.get("http://localhost:5000/vendor/"+sessionStorage.getItem('email')).then(response => {
-      console.log(response.data.result);
-      this.setState({ vendorList: response.data.result });
-    });
+    axios
+      .get("http://localhost:5000/vendor/" + sessionStorage.getItem("email"))
+      .then(response => {
+        console.log(response.data.result);
+        this.setState({ vendorList: response.data.result });
+      });
   }
 
+  onSelectNewTab = index => {
+    this.setState({ activeTab: index });
+  };
+
   render() {
+    let route;
+
+    let renderSidebarTabs = this.state.sidebarTabs.map((tab, i) => {
+      return (
+        <button
+          className={
+            "sidebar-item list-group-item list-group-item-action " +
+            (this.state.activeTab == i ? "active" : "")
+          }
+          key={i}
+          onClick={e => this.onSelectNewTab(i)}
+        >
+          {tab}
+        </button>
+      );
+    });
+
+    switch (this.state.activeTab) {
+      case 0:
+        route = <UserHome />;
+        break;
+      case 1:
+        route = <AddVendor />;
+        break;
+      case 2:
+        route = <EditVendor vendorList={this.state.vendorList} />;
+        break;
+      default:
+        route = null;
+    }
+
     return (
       <div className="userhome-wrapper col-md-12 screen-wrapper">
         <div className="card accordion-container flex">
-          <div className="col-sm-4 sidebar">
-            <Accordion>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0">
-                  Intro!
-                </Accordion.Toggle>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="1">
-                  Events List
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                  <Card.Body>Hello! I'm the body</Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2">
-                  Click me!
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="2">
-                  <Card.Body>Hello! I'm another body</Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
-          </div>
-          <div className="col-sm-8 sidebar-content"><AddVendor /></div><br/>
-          <div className="col-sm-8 sidebar-content"><EditVendor vendorList={this.state.vendorList} /></div>
-          
+          <div className="col-sm-2 sidebar">{renderSidebarTabs}</div>
+          <div className="col-sm-10 sidebar-content">{route}</div>
         </div>
       </div>
     );
