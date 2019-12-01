@@ -17,6 +17,7 @@ const port = 5000;
 
 const Organizer = require("./src/models/OrganizerSchema");
 const Vendor = require("./src/models/VendorSchema");
+const User = require("./src/models/UserSchema");
 
 
 // Connection URL
