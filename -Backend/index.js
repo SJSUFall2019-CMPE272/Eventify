@@ -18,6 +18,7 @@ const port = 5000;
 const Organizer = require("./src/models/OrganizerSchema");
 const Vendor = require("./src/models/VendorSchema");
 const User = require("./src/models/UserSchema");
+const Report = require("./src/models/ReportSchema");
 
 
 // Connection URL
@@ -400,3 +401,19 @@ app.post('/resetPassword', function(req,res){
             } 
         })
     }); 
+
+
+//organizer get report
+app.get('/report/:email', function(req,res){
+    Report.find({organizer_id:req.params.email}).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(vendor);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
