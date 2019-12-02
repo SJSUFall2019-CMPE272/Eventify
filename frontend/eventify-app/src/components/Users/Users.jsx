@@ -5,6 +5,7 @@ import "./Users.scss";
 import AddVendor from "./AddVendor";
 import EditVendor from "./EditVendor";
 import UserHome from "./UserHome";
+import Report from "./Report";
 import axios from "axios";
 
 class Users extends Component {
@@ -65,6 +66,9 @@ class Users extends Component {
             onModify={this.componentDidMount.bind(this)}
           />
         );
+        break;
+      case 3:
+        route = <Report />;
         break;
       default:
         route = null;

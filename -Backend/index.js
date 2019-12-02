@@ -404,15 +404,15 @@ app.post('/resetPassword', function(req,res){
 
 
 //organizer get report
-app.get('/report/:email', function(req,res){
-    Report.find({organizer_id:req.params.email}).then(report =>{
+app.get('/report/topten/:email', function(req,res){
+    Report.find({organizer_id:req.params.email}).sort({"visitors":-1}).limit(10).then(report =>{
         if(!report.length){
             console.log("no report");
             return res.json({message:"No report Found", result:[]});
         }
         else{
             console.log("report");
-            console.log(vendor);
+            console.log(report);
             res.json({message:"Report Found", result:report});
         }
     })
