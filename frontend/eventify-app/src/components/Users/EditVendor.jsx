@@ -239,15 +239,10 @@ class EditVendor extends Component {
 
                 <Col sm={8}>
                   <Form.Control
-                    required
-                    type="text"
-                    placeholder="Email Address"
-                    value={this.state.email}
-                    onChange={e => this.setState({ email: e.target.value })}
+                    plaintext
+                    readOnly
+                    defaultValue={this.state.email}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Please enter email address.
-                  </Form.Control.Feedback>
                 </Col>
               </Form.Group>
 

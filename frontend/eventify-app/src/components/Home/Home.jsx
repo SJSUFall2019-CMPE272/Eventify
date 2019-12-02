@@ -14,8 +14,8 @@ class Home extends Component {
           <Carousel
             infiniteLoop={true}
             autoPlay={true}
-            interval="5000"
-            transitionTime="500"
+            interval={5000}
+            transitionTime={500}
             showThumbs={false}
           >
             <div>
