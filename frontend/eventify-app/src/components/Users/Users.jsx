@@ -29,6 +29,12 @@ class Users extends Component {
   };
 
   render() {
+    let privilegeLevel = sessionStorage.getItem("privileges");
+    if (!privilegeLevel) {
+      this.props.history.push("/");
+    } else if (privilegeLevel == "admin") {
+      this.props.history.push("/admin");
+    }
     let route;
 
     let renderSidebarTabs = this.state.sidebarTabs.map((tab, i) => {

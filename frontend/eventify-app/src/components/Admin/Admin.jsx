@@ -23,6 +23,12 @@ class Admin extends Component {
   }
 
   render() {
+    let privilegeLevel = sessionStorage.getItem("privileges");
+    if (!privilegeLevel) {
+      this.props.history.push("/");
+    } else if (privilegeLevel == "organizer") {
+      this.props.history.push("/userhome");
+    }
     let route;
 
     let renderSidebarTabs = this.state.sidebarTabs.map((tab, i) => {
