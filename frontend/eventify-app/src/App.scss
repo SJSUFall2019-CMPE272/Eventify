@@ -65,3 +65,9 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
         }
     }
 }
+
+.border-div {
+    height: 5px;
+    background: $horizontalGradient;
+    margin: 15px 0;
+}

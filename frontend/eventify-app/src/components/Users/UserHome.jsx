@@ -5,7 +5,7 @@ class UserHome extends Component {
   render() {
     return (
       <div className="tab-content">
-        <h1 className="header">User Home</h1>
+        <h1 className="header">User Home</h1> <div class="border-div"></div>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Lacus

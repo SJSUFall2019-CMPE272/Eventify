@@ -76,6 +76,7 @@ class AddVendor extends Component {
         <div className="tab-content">
           <div className="tab-header">
             <h1 className="header">Add Vendor</h1>
+            <div class="border-div"></div>
             <p>
               Here you can add a new vendor and specify details about the same.
             </p>

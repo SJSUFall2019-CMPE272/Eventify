@@ -145,7 +145,7 @@ class EditVendor extends Component {
       <React.Fragment>
         <div className="tab-content">
           <div className="tab-header">
-            <h1 className="header">Vendors</h1>
+            <h1 className="header">Vendors</h1> <div class="border-div"></div>
             <p>
               A list of vendors that were added previously can be found here.
             </p>

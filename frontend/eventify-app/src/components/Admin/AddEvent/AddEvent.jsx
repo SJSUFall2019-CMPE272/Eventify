@@ -86,7 +86,7 @@ class AddEvent extends Component {
       <React.Fragment>
         <div className="tab-content">
           <div className="tab-header">
-            <h1 className="header">Add Event</h1>
+            <h1 className="header">Add Event</h1> <div class="border-div"></div>
             <p>
               Here you can add a new event and specify details about the same.
             </p>

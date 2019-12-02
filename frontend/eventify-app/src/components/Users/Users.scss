@@ -4,10 +4,12 @@
     .accordion-container {
         flex-direction: row;
         align-items: flex-start;
-
+        height: calc(92vh - 30px);
         .sidebar {
             height: 100%;
             padding: 0;
+            position: sticky;
+            top: 0;
             .list-group-item {
                 &.active {
                     background: $horizontalGradient;
@@ -22,6 +24,7 @@
         .sidebar-content {
             border-left: 1px solid rgba(0,0,0,.125);
             padding: 15px;
+            height: 100%;
         }
     }
 } 
