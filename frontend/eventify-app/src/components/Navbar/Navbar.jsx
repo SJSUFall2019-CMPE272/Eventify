@@ -13,7 +13,8 @@ import {
   faTimes,
   faSignOutAlt,
   faSignInAlt,
-  faPhoneAlt
+  faPhoneAlt,
+  faCheck
 } from "@fortawesome/free-solid-svg-icons";
 
 class Navbar extends Component {
@@ -233,9 +234,11 @@ class Navbar extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.onLogout} variant="danger" size="sm">
+              <FontAwesomeIcon icon={faCheck} />
               Yes
             </Button>
             <Button onClick={this.logoutClose} size="sm">
+              <FontAwesomeIcon icon={faTimes} />
               No
             </Button>
           </Modal.Footer>

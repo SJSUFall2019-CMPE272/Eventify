@@ -7,6 +7,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
 import "./Users.scss";
+import {
+  faCheck,
+  faTimes,
+  faEdit,
+  faTrashAlt
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class EditVendor extends Component {
   state = {
@@ -106,6 +113,7 @@ class EditVendor extends Component {
                 variant="primary"
                 onClick={e => this.editModalShow(currVendor)}
               >
+                <FontAwesomeIcon icon={faEdit} />
                 Edit
               </Button>
             </td>
@@ -115,6 +123,7 @@ class EditVendor extends Component {
                 value={currVendor.email}
                 onClick={e => this.deleteOpen(e)}
               >
+                <FontAwesomeIcon icon={faTrashAlt} />
                 Delete
               </Button>
             </td>
@@ -346,9 +355,11 @@ class EditVendor extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.onDelete} variant="danger" size="sm">
+              <FontAwesomeIcon icon={faCheck} />
               Yes
             </Button>
             <Button onClick={this.deleteClose} size="sm">
+              <FontAwesomeIcon icon={faTimes} />
               No
             </Button>
           </Modal.Footer>

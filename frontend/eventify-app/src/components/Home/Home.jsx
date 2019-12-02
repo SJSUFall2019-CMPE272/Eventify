@@ -29,15 +29,9 @@ class Home extends Component {
             </div>
           </Carousel>
         </div>
-        <div onClick={this.navigateUsers}>Click</div>
       </div>
     );
   }
-
-  navigateUsers = () => {
-    console.log(this);
-    this.props.history.push("/userhome");
-  };
 }
 
 export default withRouter(Home);

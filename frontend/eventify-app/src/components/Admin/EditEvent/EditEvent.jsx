@@ -7,6 +7,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./EditEvent.scss";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTimes,
+  faCheck,
+  faEdit,
+  faTrashAlt
+} from "@fortawesome/free-solid-svg-icons";
 
 class EditEvent extends Component {
   state = {
@@ -104,7 +111,9 @@ class EditEvent extends Component {
               <Button
                 variant="primary"
                 onClick={e => this.editModalShow(currEvent)}
+                size="sm"
               >
+                <FontAwesomeIcon icon={faEdit} />
                 Edit
               </Button>
             </td>
@@ -113,7 +122,9 @@ class EditEvent extends Component {
                 variant="danger"
                 value={currEvent.email}
                 onClick={e => this.deleteOpen(e)}
+                size="sm"
               >
+                <FontAwesomeIcon icon={faTrashAlt} />
                 Delete
               </Button>
             </td>
@@ -333,9 +344,11 @@ class EditEvent extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.onDelete} variant="danger" size="sm">
+              <FontAwesomeIcon icon={faCheck} />
               Yes
             </Button>
             <Button onClick={this.deleteClose} size="sm">
+              <FontAwesomeIcon icon={faTimes} />
               No
             </Button>
           </Modal.Footer>
