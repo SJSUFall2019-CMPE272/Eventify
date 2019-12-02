@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ReportSchema = new Schema(
   {
+    organizer_id:String,
     vendor_id: Number,
     visitors: [
       {
