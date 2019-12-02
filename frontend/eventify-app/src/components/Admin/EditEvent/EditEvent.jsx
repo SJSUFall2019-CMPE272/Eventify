@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./EditEvent.scss";
-import axios from 'axios';
+import axios from "axios";
 
 class EditEvent extends Component {
   state = {
@@ -43,27 +43,24 @@ class EditEvent extends Component {
     });
   };
 
-  onUpdate = e =>{
+  onUpdate = e => {
     e.preventDefault();
-    let data ={
-      first_name:this.state.first_name,
-      last_name:this.state.last_name,
-      email:this.state.email,
-      phone_num:this.state.phone_num,
-      event_name:this.state.event_name,
-      event_desc:this.state.event_desc,
-      event_location:this.state.event_location,
-      date:this.state.date
+    let data = {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      phone_num: this.state.phone_num,
+      event_name: this.state.event_name,
+      event_desc: this.state.event_desc,
+      event_location: this.state.event_location,
+      date: this.state.date
     };
     console.log("in update function");
-    axios
-        .post("http://localhost:5000/events/update", data)
-      .then(response => {
-        console.log(response.data.message);
-        this.editModalClose();
-        window.location.reload(true); 
+    axios.post("http://localhost:5000/events/update", data).then(response => {
+      console.log(response.data.message);
+      this.editModalClose();
+      this.props.onModify();
     });
-       
   };
 
   deleteOpen = e => {
@@ -74,19 +71,17 @@ class EditEvent extends Component {
     this.setState({ deleteModal: false });
   };
 
-  onDelete = e =>{
+  onDelete = e => {
     console.log("delete function call");
     e.preventDefault();
-      let data ={
-        email:this.state.idSelected
-      };
-      axios
-          .post("http://localhost:5000/deleteEvent", data)
-        .then(response => {
-          console.log(response.data.message);
-          window.location.reload(true); 
-        });
-    
+    let data = {
+      email: this.state.idSelected
+    };
+    axios.post("http://localhost:5000/deleteEvent", data).then(response => {
+      console.log(response.data.message);
+      this.deleteClose();
+      this.props.onModify();
+    });
   };
 
   render() {
@@ -114,7 +109,7 @@ class EditEvent extends Component {
               </Button>
             </td>
             <td>
-            <Button
+              <Button
                 variant="danger"
                 value={currEvent.email}
                 onClick={e => this.deleteOpen(e)}
@@ -324,7 +319,7 @@ class EditEvent extends Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={e=>this.onUpdate(e)}>Update</Button>
+            <Button onClick={e => this.onUpdate(e)}>Update</Button>
           </Modal.Footer>
         </Modal>
         <Modal centered show={this.state.deleteModal} onHide={this.deleteClose}>

@@ -39,6 +39,7 @@ class AddVendor extends Component {
       if (response.data.message === "Vendor added successfully") {
         this.setState({ successModal: true });
         this.resetForm();
+        this.props.onModify();
       }
     });
   };

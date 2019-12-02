@@ -50,10 +50,15 @@ class Users extends Component {
         route = <UserHome />;
         break;
       case 1:
-        route = <AddVendor />;
+        route = <AddVendor onModify={this.componentDidMount.bind(this)} />;
         break;
       case 2:
-        route = <EditVendor vendorList={this.state.vendorList} />;
+        route = (
+          <EditVendor
+            vendorList={this.state.vendorList}
+            onModify={this.componentDidMount.bind(this)}
+          />
+        );
         break;
       default:
         route = null;

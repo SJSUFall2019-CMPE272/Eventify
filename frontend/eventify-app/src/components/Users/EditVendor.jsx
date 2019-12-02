@@ -67,7 +67,7 @@ class EditVendor extends Component {
     axios.post("http://localhost:5000/vendor/update", data).then(response => {
       console.log(response.data.message);
       this.editModalClose();
-      window.location.reload(true);
+      this.props.onModify();
     });
   };
 
@@ -78,7 +78,8 @@ class EditVendor extends Component {
     };
     axios.post("http://localhost:5000/deleteVendor", data).then(response => {
       console.log(response.data.message);
-      window.location.reload(true);
+      this.deleteClose();
+      this.props.onModify();
     });
   };
 

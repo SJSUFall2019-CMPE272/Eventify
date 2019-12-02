@@ -45,10 +45,15 @@ class Admin extends Component {
         route = <AdminHome />;
         break;
       case 1:
-        route = <AddEvent />;
+        route = <AddEvent onModify={this.componentDidMount.bind(this)} />;
         break;
       case 2:
-        route = <EditEvent eventList={this.state.eventList} />;
+        route = (
+          <EditEvent
+            eventList={this.state.eventList}
+            onModify={this.componentDidMount.bind(this)}
+          />
+        );
         break;
       default:
         route = null;
