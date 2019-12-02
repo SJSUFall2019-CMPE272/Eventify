@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar/Navbar";
 export default function App() {
   return (
     <Router>
-      <div>
+      <div className="app-wrapper">
         <Navbar />
 
         <div className="content">

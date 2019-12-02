@@ -5,6 +5,10 @@ $midBlue: #15c1d9;
 $darkBlue: #279de6;
 $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,217,1) 50%, rgba(39,157,230,1) 100%);
 
+.app-wrapper {
+    overflow: hidden;
+}
+
 .content {
     background-image: url('./assets/images/appbg.jpg');
     background-size: cover;
@@ -71,3 +75,64 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
     background: $horizontalGradient;
     margin: 15px 0;
 }
+
+
+@media only screen and (max-width: 768px) {
+    .login-container {
+        display: none;
+    }
+
+    .sidebar-wrapper {
+        width: 50vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        right: -50%;
+        transition: all 0.75s ease;
+        &.show {
+            right: 0;
+        }
+  
+        .sidebar-header {
+            height: 8vh;
+            display: flex;
+            padding: 0.5rem;
+            background: white;
+            .sidebar-btn {
+              font-size: 2rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: $bgColor;
+            }
+        }
+        .sidebar-body {
+            background: $bgColor;
+            height: 92vh;
+            .flex.pointer {
+                flex-direction: column;
+            }
+            .login-item {
+              padding: 0 15px;
+              font-size: 1.2rem;
+              font-weight: 500;
+              height: 5vh;
+              width: 100%;
+              &:hover {
+                  background: $hoverColor;
+              }
+          }
+        }
+    }
+  }
+
+  @media only screen and (min-width: 769px) {
+    .sidebar-wrapper,
+    .sidebar-btn {
+        display: none;
+    }
+  }
+
+  svg {
+      margin-right: 10px;
+  }

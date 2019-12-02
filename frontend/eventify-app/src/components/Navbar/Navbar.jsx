@@ -2,10 +2,19 @@ import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import { withRouter } from "react-router-dom";
 import "./Navbar.scss";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBars,
+  faTimes,
+  faSignOutAlt,
+  faSignInAlt,
+  faPhoneAlt
+} from "@fortawesome/free-solid-svg-icons";
 
 class Navbar extends Component {
   state = {
@@ -13,7 +22,8 @@ class Navbar extends Component {
     email: "",
     password: "",
     logoutModal: false,
-    fail: false
+    fail: false,
+    openSidebar: false
   };
 
   handleClose = () => {
@@ -93,8 +103,12 @@ class Navbar extends Component {
             (this.props.history.location.pathname == "/" ? "" : "hidden")
           }
         >
-          <div className="login-item flex ">Contact Us</div>
+          <div className="login-item flex ">
+            <FontAwesomeIcon icon={faPhoneAlt} />
+            Contact Us
+          </div>
           <div className="login-item flex " onClick={this.handleShow}>
+            <FontAwesomeIcon icon={faSignInAlt} />
             Login
           </div>
         </div>
@@ -106,7 +120,62 @@ class Navbar extends Component {
           }
         >
           <div className="login-item flex " onClick={e => this.logoutOpen(e)}>
+            <FontAwesomeIcon icon={faSignOutAlt} />
             Logout
+          </div>
+        </div>
+
+        <div
+          className="sidebar-btn"
+          onClick={e => this.setState({ openSidebar: true })}
+        >
+          <FontAwesomeIcon icon={faBars} />
+        </div>
+
+        <div
+          className={
+            "sidebar-wrapper " + (this.state.openSidebar ? "show" : "")
+          }
+        >
+          <div className="sidebar-header">
+            <div
+              className="sidebar-btn"
+              onClick={e => this.setState({ openSidebar: false })}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </div>
+          </div>
+          <div className="sidebar-body">
+            <div
+              className={
+                "flex pointer " +
+                (this.props.history.location.pathname == "/" ? "" : "hidden")
+              }
+            >
+              <div className="login-item flex ">
+                <FontAwesomeIcon icon={faPhoneAlt} />
+                Contact Us
+              </div>
+              <div className="login-item flex " onClick={this.handleShow}>
+                <FontAwesomeIcon icon={faSignInAlt} />
+                Login
+              </div>
+            </div>
+
+            <div
+              className={
+                "flex pointer " +
+                (this.props.history.location.pathname != "/" ? "" : "hidden")
+              }
+            >
+              <div
+                className="login-item flex "
+                onClick={e => this.logoutOpen(e)}
+              >
+                <FontAwesomeIcon icon={faSignOutAlt} />
+                Logout
+              </div>
+            </div>
           </div>
         </div>
 
@@ -123,19 +192,29 @@ class Navbar extends Component {
             <div className="modal-container">
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  onChange={e => this.setState({ email: e.target.value })}
-                />
+                <InputGroup>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    onChange={e => this.setState({ email: e.target.value })}
+                  />
+                </InputGroup>
               </Form.Group>
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={e => this.setState({ password: e.target.value })}
-                />
+                <InputGroup>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text id="inputGroupPrepend">#</InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={e => this.setState({ password: e.target.value })}
+                  />
+                </InputGroup>
               </Form.Group>
             </div>
           </Modal.Body>
