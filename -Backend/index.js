@@ -121,7 +121,8 @@ app.post('/addEvent', function(req,res){
                     "phone_num":req.body.phone_num,
                     "event_name":req.body.event_name,
                     "event_desc":req.body.event_desc,
-                    "event_date":req.body.event_date,
+                    "event_date_from":req.body.event_date_from,
+                    "event_date_to":req.body.event_date_to,
                     "event_location":req.body.event_location,
                     "type":"Organizer"
                 });
@@ -171,8 +172,8 @@ app.get('/events', function(req,res){
 
 
 //organizer get profile
-app.get('/profile', function(req,res){
-    Organizer.findOne({email:req.body.email}).then(organizer =>{
+app.get('/profile/:email', function(req,res){
+    Organizer.findOne({email:req.params.email}).then(organizer =>{
         if(!organizer){
             return res.json({message:"Profile Not Found"});
         }
