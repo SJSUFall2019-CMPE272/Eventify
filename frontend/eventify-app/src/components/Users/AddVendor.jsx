@@ -22,7 +22,15 @@ class AddVendor extends Component {
   };
 
   onRegister = e => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.setState({ validated: true });
+      return;
+    }
     e.preventDefault();
+
     let data = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -42,6 +50,7 @@ class AddVendor extends Component {
         this.props.onModify();
       }
     });
+    this.setState({ validated: false });
   };
 
   successClose = () => {
@@ -61,6 +70,10 @@ class AddVendor extends Component {
     });
   }
 
+  changeRadio(e) {
+    this.setState({ vendor_type: e.target.value });
+  }
+
   render() {
     const CustomInput = ({ value, onClick }) => (
       <input
@@ -70,6 +83,21 @@ class AddVendor extends Component {
         value={value}
       />
     );
+
+    let radios = ["Speaker", "Stall"].map((key, index) => {
+      return (
+        <Form.Check
+          custom
+          type="radio"
+          id={`custom-radio-` + index}
+          label={key}
+          name="vendortype"
+          value={key}
+          key={key}
+          onClick={e => this.changeRadio(e)}
+        />
+      );
+    });
 
     return (
       <React.Fragment>
@@ -85,7 +113,7 @@ class AddVendor extends Component {
             <Form
               noValidate
               validated={this.state.validated}
-              // onSubmit={e => this.handleSubmit(e)}
+              onSubmit={e => this.onRegister(e)}
             >
               <Form.Group as={Row}>
                 <Form.Label column md={4}>
@@ -191,15 +219,7 @@ class AddVendor extends Component {
                 </Form.Label>
 
                 <Col sm={8}>
-                  <Form.Control
-                    required
-                    type="text"
-                    placeholder="Vendor Type"
-                    value={this.state.vendor_type}
-                    onChange={e =>
-                      this.setState({ vendor_type: e.target.value })
-                    }
-                  />
+                  {radios}
                   <Form.Control.Feedback type="invalid">
                     Please enter vendor type
                   </Form.Control.Feedback>
@@ -249,9 +269,7 @@ class AddVendor extends Component {
                 </Col>
               </Form.Group>
 
-              <Button type="submit" onClick={e => this.onRegister(e)}>
-                Add Vendor
-              </Button>
+              <Button type="submit">Add Vendor</Button>
             </Form>
           </div>
         </div>
