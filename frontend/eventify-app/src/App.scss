@@ -10,12 +10,13 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
 }
 
 .content {
-    background-image: url('./assets/images/appbg.jpg');
-    background-size: cover;
+    // background-image: url('./assets/images/appbg.jpg');
+    // background-size: cover;
 }
 
 .screen-wrapper {
     padding: 15px;
+    opacity: 0.95;
 }
 
 .card {
@@ -141,3 +142,38 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
   svg {
       margin-right: 10px;
   }
+
+  #myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+  }
+
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: $darkBlue;
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.lightblue {
+    color: $midBlue;
+}
