@@ -62,6 +62,13 @@ app.listen(3050, err => {
     if (err) console.error(err);
     console.log("Server Listening on port 3050");
 });
+app.get("/getlead/:vendorId", function (req, res) {
+    Report.find({ vendor_id: req.params.vendorId }).where('visitors.total_time').gt(8).then(visitors => {
+        console.log(visitors);
+        console.log(visitors.card_number);
+        res.json({ message: "Report Found", result: visitors });
+    })
+});
 app.get("/createreport", async function (req, res) {
     let vendorData = [];
     let rfidData = [];
