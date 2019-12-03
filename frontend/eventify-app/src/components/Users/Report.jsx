@@ -25,18 +25,21 @@ class Report extends Component {
         let b = [];
         let i = 0;
         this.state.report.map((currVendor, index) => {
-          // console.log(currVendor.visitors.length);
+          console.log(currVendor.visitors.length);
+          console.log(currVendor.company_name);
           if (!b.length) {
             b = [
-              { y: currVendor.visitors.length, label: currVendor.vendor_id }
+              { y: currVendor.visitors.length, label: currVendor.company_name }
             ];
             i++;
           } else {
-            b.push({ y: currVendor.visitors.length, y: currVendor.vendor_id });
+            b.push({ y: currVendor.visitors.length, label: currVendor.company_name });
             i++;
           }
         });
         this.setState({ topten: b });
+        console.log("sdfdfsdfsdfsdfsdf"+this.state.topten);
+
       });
   }
 
