@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 const ReportSchema = new Schema(
   {
     vendor_id: Number,
+    organizer_id: String,
+    company_name: String,
     visitors: [
       {
         card_number: String,
