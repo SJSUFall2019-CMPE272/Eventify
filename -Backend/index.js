@@ -403,9 +403,24 @@ app.post('/resetPassword', function(req,res){
     }); 
 
 
-//organizer get report
+//organizer get report - top ten stalls
 app.get('/report/topten/:email', function(req,res){
-    Report.find({organizer_id:req.params.email}).sort({"visitors":-1}).limit(10).then(report =>{
+    Report.find({organizer_id:req.params.email, vendor_type:"Stall"}).sort({"visitors":-1}).limit(5).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+//organizer get report - top ten speakers
+app.get('/report/toptenspeakers/:email', function(req,res){
+    Report.find({organizer_id:req.params.email, vendor_type:"Speaker"}).sort({"visitors":-1}).limit(5).then(report =>{
         if(!report.length){
             console.log("no report");
             return res.json({message:"No report Found", result:[]});

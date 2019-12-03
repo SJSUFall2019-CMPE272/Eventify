@@ -6,6 +6,7 @@ const ReportSchema = new Schema(
     vendor_id: Number,
     organizer_id: String,
     company_name: String,
+    vendor_type: String,
     visitors: [
       {
         card_number: String,

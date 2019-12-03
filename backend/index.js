@@ -95,8 +95,9 @@ app.get("/createreport", async function (req, res) {
         let readerNum = document.rfid_reader_id;
         let organizer_id = document.organizer_id;
         let company_name = document.company_name;
+        let vendor_type = document.vendor_type;
         if (readerNum !== null && readerNum !== "" && readerNum !== undefined) {
-            newVendor = new Report({ vendor_id: readerNum, organizer_id: organizer_id, company_name: company_name });
+            newVendor = new Report({ vendor_id: readerNum, organizer_id: organizer_id, company_name: company_name, vendor_type:vendor_type });
             newVendor.save().then(async vendor => {
                 const custCursor = await Users.find();
                 let custDocument;

@@ -10,18 +10,25 @@ import axios from "axios";
 class Report extends Component {
   state = {
     report: [],
-    topten: []
+    topten: [],
+    toptenspeakers:[],
+    speaker:false,
+    stall:false
   };
 
-  getTopTenCount() {
+  getTopFiveStalls() {
     axios
       .get(
         "http://localhost:5000/report/topten/" + sessionStorage.getItem("email")
       )
       .then(response => {
         console.log(response.data.result);
-        this.setState({ report: response.data.result });
-
+        
+        if(response.data.result.length===0){
+        }
+        else{
+            this.setState({ report: response.data.result });
+            this.setState({ stall: true });
         let b = [];
         let i = 0;
         this.state.report.map((currVendor, index) => {
@@ -38,16 +45,49 @@ class Report extends Component {
           }
         });
         this.setState({ topten: b });
-        console.log("sdfdfsdfsdfsdfsdf"+this.state.topten);
+    }
 
       });
   }
 
-  getTopTenTime() {}
+  getTopFiveSpeakers() {
+    axios
+    .get(
+      "http://localhost:5000/report/toptenspeakers/" + sessionStorage.getItem("email")
+    )
+    .then(response => {
+      console.log(response.data.result);
+      if(response.data.result.length===0){
+      }
+      else{
+      this.setState({ report: response.data.result });
+      this.setState({ speaker: true });
+
+      let b = [];
+      let i = 0;
+      this.state.report.map((currVendor, index) => {
+        console.log(currVendor.visitors.length);
+        console.log(currVendor.company_name);
+        if (!b.length) {
+          b = [
+            { y: currVendor.visitors.length, label: currVendor.company_name }
+          ];
+          i++;
+        } else {
+          b.push({ y: currVendor.visitors.length, label: currVendor.company_name });
+          i++;
+        }
+      });
+      this.setState({ toptenspeakers: b });
+      console.log("sdfdfsdfsdfsdfsdf"+this.state.toptenspeakers);
+    }
+    });
+    
+  }
 
   componentDidMount() {
-    this.getTopTenCount();
-    this.getTopTenTime();
+    this.getTopFiveStalls();
+    this.getTopFiveSpeakers();
   }
 
   render() {
@@ -56,12 +96,13 @@ class Report extends Component {
     // else {this.state.report.map((currVendor, index) => {
     //     console.log(currVendor.visitors.length);
     // }
+    let chartstall,chartspeaker;
     const options = {
       animationEnabled: true,
       exportEnabled: false,
       theme: "light1", // "light1", "dark1", "dark2"
       title: {
-        text: "Top Ten Vendors"
+        text: "Top Five Stalls"
       },
       data: [
         {
@@ -72,6 +113,36 @@ class Report extends Component {
         }
       ]
     };
+    const options1 = {
+        animationEnabled: true,
+        exportEnabled: false,
+        theme: "light1", // "light1", "dark1", "dark2"
+        title: {
+          text: "Top Five Speakers"
+        },
+        data: [
+          {
+            type: "pie",
+            indexLabel: "{label}: {y}",
+            startAngle: -90,
+            dataPoints: this.state.toptenspeakers
+          }
+        ]
+      };
+
+      if(this.state.stall===false && this.state.speaker===false){
+        chartspeaker= <h3></h3>
+        chartstall= <h3>No data available yet</h3>
+      }else if(this.state.stall===true && this.state.speaker===false){
+        chartstall= <CanvasJSChart options={options} />
+        chartspeaker= <h3></h3>
+      }else if(this.state.stall===false && this.state.speaker===true){
+        chartspeaker= <CanvasJSChart options={options1} />
+        chartstall= <h3></h3>
+      }else{
+        chartstall= <CanvasJSChart options={options} />
+        chartspeaker= <CanvasJSChart options={options1} />
+      }
 
     return (
       <div className="tab-content">
@@ -80,8 +151,13 @@ class Report extends Component {
           <p>Here you can view graphs and reports.</p>
         </div>
         <div className="tab-body"></div>
+        <div className="flex">
+            <div className="col-sm-6">
+          {chartstall}
+        </div>
         <div className="col-sm-6">
-          <CanvasJSChart options={options} />
+          {chartspeaker}
+        </div>
         </div>
       </div>
     );
