@@ -12,7 +12,8 @@ import "react-datepicker/dist/react-datepicker.css";
 class AddEvent extends Component {
   state = {
     validated: false,
-    event_date: new Date(),
+    event_date_from: new Date(),
+    event_date_to: new Date(),
     first_name: "",
     last_name: "",
     email: "",
@@ -35,7 +36,8 @@ class AddEvent extends Component {
       phone_num: this.state.phone_num,
       event_name: this.state.event_name,
       event_desc: this.state.event_desc,
-      event_date: this.state.event_date,
+      event_date_from: this.state.event_date_from,
+      event_date_to: this.state.event_date_to,
       event_location: this.state.event_location
     };
     axios.post("http://localhost:5000/addEvent", data).then(response => {
@@ -67,7 +69,13 @@ class AddEvent extends Component {
 
   handleChange = date => {
     this.setState({
-      event_date: date
+      event_date_from: date
+    });
+  };
+
+  handleChange1 = date => {
+    this.setState({
+      event_date_to: date
     });
   };
 
@@ -238,13 +246,27 @@ class AddEvent extends Component {
 
               <Form.Group as={Row}>
                 <Form.Label column md={4}>
-                  Date
+                  Date From
                 </Form.Label>
 
                 <Col sm={8}>
                   <DatePicker
-                    selected={this.state.event_date}
+                    selected={this.state.event_date_from}
                     onChange={this.handleChange}
+                    customInput={<CustomInput />}
+                  />
+                </Col>
+              </Form.Group>
+
+              <Form.Group as={Row}>
+                <Form.Label column md={4}>
+                  Date To
+                </Form.Label>
+
+                <Col sm={8}>
+                  <DatePicker
+                    selected={this.state.event_date_to}
+                    onChange={this.handleChange1}
                     customInput={<CustomInput />}
                   />
                 </Col>

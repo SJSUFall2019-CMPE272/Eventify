@@ -46,7 +46,8 @@ class EditEvent extends Component {
       event_name: event.event_name,
       event_desc: event.event_desc,
       event_location: event.event_location,
-      date: event.event_date
+      date_from: event.event_date_from,
+      date_to: event.event_date_to
     });
   };
 
@@ -60,7 +61,8 @@ class EditEvent extends Component {
       event_name: this.state.event_name,
       event_desc: this.state.event_desc,
       event_location: this.state.event_location,
-      date: this.state.date
+      date_from: this.state.date_from,
+      date_to: this.state.date_to
     };
     console.log("in update function");
     axios.post("http://localhost:5000/events/update", data).then(response => {
@@ -106,7 +108,9 @@ class EditEvent extends Component {
             <td>{currEvent.first_name}</td>
             <td>{currEvent.phone_num}</td>
             <td>{currEvent.event_location}</td>
-            <td>{new Date(currEvent.event_date).toLocaleDateString()}</td>
+            <td>{new Date(currEvent.event_date_from).toLocaleDateString()}</td>
+            <td>{new Date(currEvent.event_date_to).toLocaleDateString()}</td>
+            
             <td>
               <Button
                 variant="primary"
@@ -139,7 +143,8 @@ class EditEvent extends Component {
               <th>First Name</th>
               <th>Phone no</th>
               <th>Location</th>
-              <th>Date</th>
+              <th>Date From</th>
+              <th>Date To</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -313,7 +318,7 @@ class EditEvent extends Component {
                 </Form.Group>
                 <Form.Group as={Row}>
                   <Form.Label column md={4}>
-                    Date
+                    Date From
                   </Form.Label>
 
                   <Col sm={8}>
@@ -321,7 +326,22 @@ class EditEvent extends Component {
                       plaintext
                       readOnly
                       defaultValue={new Date(
-                        this.state.date
+                        this.state.date_from
+                      ).toLocaleDateString()}
+                    />
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column md={4}>
+                    Date To
+                  </Form.Label>
+
+                  <Col sm={8}>
+                    <Form.Control
+                      plaintext
+                      readOnly
+                      defaultValue={new Date(
+                        this.state.date_to
                       ).toLocaleDateString()}
                     />
                   </Col>
