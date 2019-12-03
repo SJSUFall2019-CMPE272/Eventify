@@ -433,3 +433,19 @@ app.get('/report/toptenspeakers/:email', function(req,res){
         }
     })
 });
+
+
+//organizer get report - all vendor data
+app.get('/report/:email', function(req,res){
+    Report.find({organizer_id:req.params.email}).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
