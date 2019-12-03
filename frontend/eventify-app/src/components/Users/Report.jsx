@@ -17,7 +17,9 @@ class Report extends Component {
     timereportspeaker:false,
     timereportstall:false,
     speaker:false,
-    stall:false
+    stall:false,
+    countc:[],
+    countd:[],
   };
 
   getTopFiveStalls() {
@@ -101,14 +103,15 @@ class Report extends Component {
         if(response.data.result.length===0){
         }
         else{
-            let c=[],d=[];
+            let c=[],d=[],e=[],f=[];
             response.data.result.map((currObject, index) => {
                 if(currObject.vendor_type==="Stall"){
                     this.setState({ timereportstall: true });
-                    let sum=0;
+                    let sum=0, countc=0;
                     console.log("visitors",currObject.visitors);
                     currObject.visitors.map((vis, index) => {
                         sum+=vis.total_time;
+                        countc++;
                     });
                     sum=Math.ceil(sum);
                     if(!c.length){
@@ -118,12 +121,20 @@ class Report extends Component {
                     }else{
                         c.push({ label: currObject.company_name, y: sum });
                     }
+                    if(!e.length){
+                        e = [
+                            { label: currObject.company_name, y: sum/countc }
+                        ];
+                    }else{
+                        e.push({ label: currObject.company_name, y: sum/countc });
+                    }
                 }
                 else if(currObject.vendor_type==="Speaker"){
                     this.setState({ timereportspeaker: true });
-                    let sum=0;
+                    let sum=0, countd=0;
                     currObject.visitors.map((vis, index) => {
                         sum+=vis.total_time;
+                        countd++;
                     });
                     sum=Math.ceil(sum);
                     if(!d.length){
@@ -133,9 +144,18 @@ class Report extends Component {
                     }else{
                         d.push({ label: currObject.company_name, y: sum });
                     }
+                    if(!f.length){
+                        f = [
+                            { label: currObject.company_name, y: sum/countd }
+                        ];
+                    }else{
+                        f.push({ label: currObject.company_name, y: sum/countd });
+                    }
                 }
             });
             this.setState({ timestall: c });
+            this.setState({ countc: e });
+            this.setState({ countd: f });
             this.setState({ timespeaker: d });
     }
 
@@ -242,34 +262,76 @@ class Report extends Component {
         }]
     }
 
+    const options4 = {
+        animationEnabled: true,
+        theme: "light1",
+        title: {
+            text: "Average time spent by attendees at each vendor's stall",
+            fontFamily:"Segoe UI"
+        },
+        axisY: {
+        title: "Time (in min)",
+        },
+        data: [{
+            type: "column",
+            indexLabel: "{y}",
+            labelAngle: 180,		
+            indexLabelFontColor: "black",
+            dataPoints: this.state.countc
+        }]
+    }
+
+    const options5 = {
+        animationEnabled: true,
+        theme: "light1",
+        title: {
+            text: "Average time spent by attendees at each speaker's presentation",
+            fontFamily:"Segoe UI"
+        },
+        axisY: {
+        title: "Time (in min)",
+        },
+        data: [{
+            type: "column",
+            indexLabel: "{y}",
+            labelAngle: 180,		
+            indexLabelFontColor: "black",
+            dataPoints: this.state.countd
+        }]
+    }
 
 
 
-      if(this.state.stall===false && this.state.timereportstall===false){
+      if(this.state.stall===false && this.state.timereportstall===false ){
         chartstall= <center><h3>No data available yet</h3></center>
 
       }else{
-      chartstall=  <div className="flex">
+      chartstall=  <React.Fragment><div className="flex">
         <div className="col-sm-6">
         <CanvasJSChart options={options} />
         </div>
         <div className="col-sm-6">
         <CanvasJSChart options={options2} />
         </div>
-        </div>
+        </div><br/><br/>
+        <div className="col-sm-6 margin-center"><CanvasJSChart options={options4} /></div>
+        </React.Fragment>
         
       }
 
       if(this.state.timereportspeaker===false && this.state.speaker===false){
         chartspeaker= <center><h3>No data available yet</h3></center>
       }else{
-        chartspeaker=<div className="flex">
+        chartspeaker=<React.Fragment><div className="flex">
         <div className="col-sm-6">
         <CanvasJSChart options={options1} />
         </div>
         <div className="col-sm-6">
         <CanvasJSChart options={options3} />
-        </div></div>
+        </div>
+        </div><br/><br/>
+        <div className="col-sm-6 margin-center"><CanvasJSChart options={options5} /></div></React.Fragment>
+
       }
 
       
@@ -280,11 +342,11 @@ class Report extends Component {
           <h1 className="header">Reports</h1> <div class="border-div"></div>
           <p>Here you can view graphs and reports.</p>
         </div>
-        <div className="tab-body">
-        <center><h1>Vendors</h1></center><br/>
+        <div className="tab-body"><hr/>
+        <center><h1>Vendors</h1></center><hr/><br/>
         {chartstall}<br/><hr/>
 
-        <center><h1>Speakers</h1></center><br/>
+        <center><h1>Speakers</h1></center><hr/><br/>
         {chartspeaker}
         </div>
       </div>
