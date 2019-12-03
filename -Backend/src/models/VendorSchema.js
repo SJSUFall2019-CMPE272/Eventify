@@ -32,7 +32,7 @@ const VendorSchema = new Schema(
     },
     vendor_desc: String,
     rfid_reader_id: {
-      type: String,
+      type: Number,
       required: true
     }
   },

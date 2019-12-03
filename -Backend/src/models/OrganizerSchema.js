@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const OrganizerSchema = new Schema(
   {
-    first_name: String,
+    first_name: {
+      type: String,
+      required: true
+    },
     last_name: String,
     password: {
       type: String,
@@ -15,10 +18,19 @@ const OrganizerSchema = new Schema(
       required: true,
       unique: true
     },
-	event_name: String,
+	event_name: {
+    type: String,
+    required: true
+  },
 	event_desc: String,
-	event_date: Date,
-	event_location: String,
+	event_date: {
+    type: Date,
+    required: true
+  },
+	event_location: {
+    type: String,
+    required: true
+  },
 	type: String
   },
   { collection: "organizer" }
