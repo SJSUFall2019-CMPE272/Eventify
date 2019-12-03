@@ -12,6 +12,10 @@ class Report extends Component {
     report: [],
     topten: [],
     toptenspeakers:[],
+    timestall:[],
+    timespeaker:[],
+    timereportspeaker:false,
+    timereportstall:false,
     speaker:false,
     stall:false
   };
@@ -85,9 +89,64 @@ class Report extends Component {
     
   }
 
+
+  getAllVendorData() {
+    axios
+      .get(
+        "http://localhost:5000/report/" + sessionStorage.getItem("email")
+      )
+      .then(response => {
+        console.log("all dataaaaaaaaaaaa"+response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+            let c=[],d=[];
+            response.data.result.map((currObject, index) => {
+                if(currObject.vendor_type==="Stall"){
+                    this.setState({ timereportstall: true });
+                    let sum=0;
+                    console.log("visitors",currObject.visitors);
+                    currObject.visitors.map((vis, index) => {
+                        sum+=vis.total_time;
+                    });
+                    sum=Math.ceil(sum);
+                    if(!c.length){
+                        c = [
+                            { label: currObject.company_name, y: sum }
+                        ];
+                    }else{
+                        c.push({ label: currObject.company_name, y: sum });
+                    }
+                }
+                else if(currObject.vendor_type==="Speaker"){
+                    this.setState({ timereportspeaker: true });
+                    let sum=0;
+                    currObject.visitors.map((vis, index) => {
+                        sum+=vis.total_time;
+                    });
+                    sum=Math.ceil(sum);
+                    if(!d.length){
+                        d = [
+                            { label: currObject.company_name, y: sum }
+                        ];
+                    }else{
+                        d.push({ label: currObject.company_name, y: sum });
+                    }
+                }
+            });
+            this.setState({ timestall: c });
+            this.setState({ timespeaker: d });
+    }
+
+      });
+  }
+
+
   componentDidMount() {
     this.getTopFiveStalls();
     this.getTopFiveSpeakers();
+    this.getAllVendorData();
   }
 
   render() {
@@ -96,14 +155,21 @@ class Report extends Component {
     // else {this.state.report.map((currVendor, index) => {
     //     console.log(currVendor.visitors.length);
     // }
-    let chartstall,chartspeaker;
+    let chartstall,chartspeaker,timestall, timespeaker;
     const options = {
       animationEnabled: true,
       exportEnabled: false,
       theme: "light1", // "light1", "dark1", "dark2"
       title: {
-        text: "Top Five Stalls"
-      },
+        text: "Top Five Stalls",
+        fontFamily:"Segoe UI"
+      },subtitles:[
+        {
+            text: "Number of attendees",
+            fontSize: 15,
+            fontFamily:"Segoe UI"
+        }
+        ],
       data: [
         {
           type: "pie",
@@ -118,8 +184,16 @@ class Report extends Component {
         exportEnabled: false,
         theme: "light1", // "light1", "dark1", "dark2"
         title: {
-          text: "Top Five Speakers"
+          text: "Top Five Speakers",
+          fontFamily:"Segoe UI"
         },
+        subtitles:[
+            {
+                text: "Number of attendees",
+                fontSize: 15,
+                fontFamily:"Segoe UI"
+            }
+            ],
         data: [
           {
             type: "pie",
@@ -130,19 +204,75 @@ class Report extends Component {
         ]
       };
 
-      if(this.state.stall===false && this.state.speaker===false){
-        chartspeaker= <h3></h3>
-        chartstall= <h3>No data available yet</h3>
-      }else if(this.state.stall===true && this.state.speaker===false){
-        chartstall= <CanvasJSChart options={options} />
-        chartspeaker= <h3></h3>
-      }else if(this.state.stall===false && this.state.speaker===true){
-        chartspeaker= <CanvasJSChart options={options1} />
-        chartstall= <h3></h3>
+      const options2 = {
+        animationEnabled: true,
+        theme: "light1",
+        title: {
+            text: "Total time spent by attendees at each vendor's stall",
+            fontFamily:"Segoe UI"
+        },
+        axisY: {
+        title: "Time (in min)",
+        },
+        data: [{
+            type: "column",
+            indexLabel: "{y}",
+            labelAngle: 180,		
+            indexLabelFontColor: "black",
+            dataPoints: this.state.timestall
+        }]
+    }
+
+    const options3 = {
+        animationEnabled: true,
+        theme: "light1",
+        title: {
+            text: "Total time spent by attendees at each speaker's presentation",
+            fontFamily:"Segoe UI"
+        },
+        axisY: {
+        title: "Time (in min)",
+        },
+        data: [{
+            type: "column",
+            indexLabel: "{y}",
+            labelAngle: 180,		
+            indexLabelFontColor: "black",
+            dataPoints: this.state.timespeaker
+        }]
+    }
+
+
+
+
+      if(this.state.stall===false && this.state.timereportstall===false){
+        chartstall= <center><h3>No data available yet</h3></center>
+
       }else{
-        chartstall= <CanvasJSChart options={options} />
-        chartspeaker= <CanvasJSChart options={options1} />
+      chartstall=  <div className="flex">
+        <div className="col-sm-6">
+        <CanvasJSChart options={options} />
+        </div>
+        <div className="col-sm-6">
+        <CanvasJSChart options={options2} />
+        </div>
+        </div>
+        
       }
+
+      if(this.state.timereportspeaker===false && this.state.speaker===false){
+        chartspeaker= <center><h3>No data available yet</h3></center>
+      }else{
+        chartspeaker=<div className="flex">
+        <div className="col-sm-6">
+        <CanvasJSChart options={options1} />
+        </div>
+        <div className="col-sm-6">
+        <CanvasJSChart options={options3} />
+        </div></div>
+      }
+
+      
 
     return (
       <div className="tab-content">
@@ -150,14 +280,12 @@ class Report extends Component {
           <h1 className="header">Reports</h1> <div class="border-div"></div>
           <p>Here you can view graphs and reports.</p>
         </div>
-        <div className="tab-body"></div>
-        <div className="flex">
-            <div className="col-sm-6">
-          {chartstall}
-        </div>
-        <div className="col-sm-6">
-          {chartspeaker}
-        </div>
+        <div className="tab-body">
+        <center><h1>Vendors</h1></center><br/>
+        {chartstall}<br/><hr/>
+
+        <center><h1>Speakers</h1></center><br/>
+        {chartspeaker}
         </div>
       </div>
     );
