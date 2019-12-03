@@ -121,7 +121,8 @@ app.post('/addEvent', function(req,res){
                     "phone_num":req.body.phone_num,
                     "event_name":req.body.event_name,
                     "event_desc":req.body.event_desc,
-                    "event_date":req.body.event_date,
+                    "event_date_from":req.body.event_date_from,
+                    "event_date_to":req.body.event_date_to,
                     "event_location":req.body.event_location,
                     "type":"Organizer"
                 });
@@ -171,8 +172,8 @@ app.get('/events', function(req,res){
 
 
 //organizer get profile
-app.get('/profile', function(req,res){
-    Organizer.findOne({email:req.body.email}).then(organizer =>{
+app.get('/profile/:email', function(req,res){
+    Organizer.findOne({email:req.params.email}).then(organizer =>{
         if(!organizer){
             return res.json({message:"Profile Not Found"});
         }
@@ -403,9 +404,40 @@ app.post('/resetPassword', function(req,res){
     }); 
 
 
-//organizer get report
+//organizer get report - top ten stalls
 app.get('/report/topten/:email', function(req,res){
-    Report.find({organizer_id:req.params.email}).sort({"visitors":-1}).limit(10).then(report =>{
+    Report.find({organizer_id:req.params.email, vendor_type:"Stall"}).sort({"visitors":-1}).limit(5).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+//organizer get report - top ten speakers
+app.get('/report/toptenspeakers/:email', function(req,res){
+    Report.find({organizer_id:req.params.email, vendor_type:"Speaker"}).sort({"visitors":-1}).limit(5).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+
+//organizer get report - all vendor data
+app.get('/report/:email', function(req,res){
+    Report.find({organizer_id:req.params.email}).then(report =>{
         if(!report.length){
             console.log("no report");
             return res.json({message:"No report Found", result:[]});

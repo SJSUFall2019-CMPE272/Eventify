@@ -23,7 +23,11 @@ const OrganizerSchema = new Schema(
     required: true
   },
 	event_desc: String,
-	event_date: {
+	event_date_from: {
+    type: Date,
+    required: true
+  },
+  event_date_to: {
     type: Date,
     required: true
   },

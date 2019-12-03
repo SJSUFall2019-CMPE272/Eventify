@@ -11,17 +11,33 @@ import axios from "axios";
 class Users extends Component {
   state = {
     vendorList: [],
+    profile:{},
     sidebarTabs: ["Intro", "Add Vendors", "View Vendors", "Reports"],
     activeTab: 0
   };
 
-  componentDidMount() {
+
+  getVendor(){
     axios
-      .get("http://localhost:5000/vendor/" + sessionStorage.getItem("email"))
-      .then(response => {
-        console.log(response.data.result);
-        this.setState({ vendorList: response.data.result });
-      });
+    .get("http://localhost:5000/vendor/" + sessionStorage.getItem("email"))
+    .then(response => {
+      console.log(response.data.result);
+      this.setState({ vendorList: response.data.result });
+    });
+  };
+
+  getProfile(){
+    axios
+    .get("http://localhost:5000/profile/" + sessionStorage.getItem("email"))
+    .then(response => {
+      console.log(response.data.result);
+      this.setState({ profile: response.data.result });
+    });
+  };
+
+  componentDidMount() {
+    this.getVendor();
+    this.getProfile();
   }
 
   onSelectNewTab = index => {
@@ -54,7 +70,7 @@ class Users extends Component {
 
     switch (this.state.activeTab) {
       case 0:
-        route = <UserHome />;
+        route = <UserHome profile={this.state.profile} onModify={this.componentDidMount.bind(this)}/>;
         break;
       case 1:
         route = <AddVendor onModify={this.componentDidMount.bind(this)} />;
