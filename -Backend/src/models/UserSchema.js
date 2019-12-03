@@ -31,7 +31,7 @@ const UserSchema = new Schema(
     },
     phone_num: String,
     rfid_id: {
-      type: Number,
+      type: String,
       required: true
     },
   },
