@@ -325,7 +325,7 @@ class EditVendor extends Component {
                 <Col sm={8}>
                   <Form.Control
                     required
-                    type="text"
+                    type="number"
                     placeholder="RFID Reader ID"
                     value={this.state.rfid_reader_id}
                     onChange={e =>

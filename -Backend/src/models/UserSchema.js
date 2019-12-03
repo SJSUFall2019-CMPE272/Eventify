@@ -16,7 +16,10 @@ const UserSchema = new Schema(
       required: true
     },
     last_name: String,
-    company_name: String,
+    company_name: {
+      type: String,
+      required: true
+    },
     email: {
       type: String,
       required: true,
@@ -27,7 +30,10 @@ const UserSchema = new Schema(
       required: true
     },
     phone_num: String,
-    rfid_id: String
+    rfid_id: {
+      type: Number,
+      required: true
+    },
   },
   { collection: "users" }
 );
