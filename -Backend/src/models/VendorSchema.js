@@ -12,7 +12,10 @@ const VendorSchema = new Schema(
       required: true
     },
     last_name: String,
-    company_name: String,
+    company_name: {
+      type: String,
+      required: true
+    },
     email: {
       type: String,
       required: true,
@@ -23,8 +26,15 @@ const VendorSchema = new Schema(
       type: String,
       required: true
     },
-	  vendor_type: String,
-	  vendor_desc: String
+	  vendor_type: {
+      type: String,
+      required: true
+    },
+    vendor_desc: String,
+    rfid_reader_id: {
+      type: String,
+      required: true
+    }
   },
   { collection: "vendors" }
 );

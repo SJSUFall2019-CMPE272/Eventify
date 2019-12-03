@@ -18,6 +18,7 @@ const port = 5000;
 const Organizer = require("./src/models/OrganizerSchema");
 const Vendor = require("./src/models/VendorSchema");
 const User = require("./src/models/UserSchema");
+const Report = require("./src/models/ReportSchema");
 
 
 // Connection URL
@@ -139,25 +140,27 @@ app.post('/addEvent', function(req,res){
 
 
 //admin delete event
-app.delete('/deleteEvent', function(req,res){   
+app.post('/deleteEvent', function(req,res){   
+    let emailid=req.body.email;
     Organizer.findOneAndDelete({ email: req.body.email }).then(organizer => {
-        if (!organizer) {
-        return res.json({message:"Email Not found in database"});
-        } 
-        else{
+        console.log("orggggggg"+organizer);
+        Vendor.deleteMany({organizer_id:emailid}).then(vendor =>{
             res.json({message:"Deleted"});
-        }
+        }).catch(err =>{
+            console.log("Error deleting record: "+err);
+        })
     }).catch(err =>{
         console.log("Error deleting record: "+err);
     })
+    
 }); 
 
 
 //admin get events
 app.get('/events', function(req,res){
     Organizer.find({}).then(organizer =>{
-        if(!organizer){
-            return res.json({message:"No Events Found"});
+        if(!organizer.length){
+            return res.json({message:"No Events Found", result:[]});
         }
         else{
             res.json({message:"Events Found", result:organizer});
@@ -180,31 +183,22 @@ app.get('/profile', function(req,res){
 });
 
 //organizer update profile
-app.post('/profile/update',function(req,res){
+app.post('/events/update',function(req,res){
+    console.log(req.body);
     Organizer.findOne({email:req.body.email}).then(organizer =>{
         if(!organizer){
             res.json({message:"Profile Not Found"});
         }else{
-                const orgUpdate = new Organizer({
+                Organizer.findOneAndUpdate({email:req.body.email},{
                     first_name: req.body.first_name,
                     last_name: req.body.last_name,
                     phone_num: req.body.phone_num,
                     event_name: req.body.event_name,
                     event_desc: req.body.event_desc
-                    });
-                Organizer.findOneAndUpdate({email:req.body.email},{
-                    first_name:orgUpdate.first_name,
-                    last_name:orgUpdate.last_name,
-                    phone_num:orgUpdate.phone_num,
-                    event_name:orgUpdate.event_name,
-                    event_desc:orgUpdate.event_desc
-    
                 }).then(organizer =>{
+                    console.log("Updated");
                     res.json({message:"Profile Updated"});
                 }).catch(err => res.status(400).json(err));
-                
-            
-            
         }
     })
 });
@@ -226,12 +220,12 @@ app.post('/addVendor', function(req,res){
                 "phone_num":req.body.phone_num,
                 "vendor_type":req.body.vendor_type,
                 "vendor_desc":req.body.vendor_desc,
-                "rfid_reader_id":req.bosy.rfid_reader_id
+                "rfid_reader_id":req.body.rfid_reader_id
             });
 
             vendor.save().then(()=>{
                 console.log("Vendor added successfully");
-                res.status(200).json({message:"Vendor added successfully"});
+                res.status(200).json({auth:true,message:"Vendor added successfully"});
             }).catch(err=>{
                 console.log("Error insereting record: "+err);
             });
@@ -241,12 +235,15 @@ app.post('/addVendor', function(req,res){
 
 
 //organizer get vendors
-app.get('/vendor', function(req,res){
-    Vendor.find({organizer_id:req.body.email}).then(vendor =>{
-        if(!vendor){
-            return res.json({message:"No Vendors Found"});
+app.get('/vendor/:email', function(req,res){
+    Vendor.find({organizer_id:req.params.email}).then(vendor =>{
+        if(!vendor.length){
+            console.log("no vendors");
+            return res.json({message:"No Vendors Found", result:[]});
         }
         else{
+            console.log("vendors");
+            console.log(vendor);
             res.json({message:"Vendors Found", result:vendor});
         }
     })
@@ -258,7 +255,7 @@ app.post('/vendor/update',function(req,res){
         if(!vendor){
             res.json({message:"Vendor Not Found"});
         }else{
-                const venUpdate = new Vendor({
+                Vendor.findOneAndUpdate({email:req.body.email},{
                     first_name: req.body.first_name,
                     last_name: req.body.last_name,
                     company_name:req.body.company_name, 
@@ -266,16 +263,6 @@ app.post('/vendor/update',function(req,res){
                     rfid_reader_id: req.body.rfid_reader_id,
                     vendor_type: req.body.vendor_type,
                     vendor_desc: req.body.vendor_desc
-                    });
-                Vendor.findOneAndUpdate({email:req.body.email},{
-                    first_name:venUpdate.first_name,
-                    last_name:venUpdate.last_name,
-                    company_name:req.body.company_name, 
-                    phone_num:venUpdate.phone_num,
-                    rfid_reader_id:venUpdate.rfid_reader_id,
-                    vendor_type:venUpdate.vendor_type,
-                    vendor_desc:venUpdate.vendor_desc
-    
                 }).then(vendor =>{
                     res.json({message:"Vendor Profile Updated"});
                 }).catch(err => res.status(400).json(err));
@@ -284,7 +271,7 @@ app.post('/vendor/update',function(req,res){
 });
 
 //organizer delete vendor
-app.delete('/deleteVendor', function(req,res){   
+app.post('/deleteVendor', function(req,res){   
     Vendor.findOneAndDelete({ email: req.body.email }).then(vendor => {
         if (!vendor) {
         return res.json({message:"Email Not found in database"});
@@ -414,3 +401,19 @@ app.post('/resetPassword', function(req,res){
             } 
         })
     }); 
+
+
+//organizer get report
+app.get('/report/topten/:email', function(req,res){
+    Report.find({organizer_id:req.params.email}).sort({"visitors":-1}).limit(10).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});

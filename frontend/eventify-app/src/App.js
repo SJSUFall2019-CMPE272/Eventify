@@ -4,11 +4,12 @@ import Users from "./components/Users/Users";
 import Home from "./components/Home/Home";
 import Admin from "./components/Admin/Admin";
 import Navbar from "./components/Navbar/Navbar";
+import videos from "./assets/video.mp4";
 
 export default function App() {
   return (
     <Router>
-      <div>
+      <div className="app-wrapper">
         <Navbar />
 
         <div className="content">
@@ -19,6 +20,9 @@ export default function App() {
           </Switch>
         </div>
       </div>
+      <video autoPlay muted loop id="myVideo">
+        <source src={videos} type="video/mp4" />
+      </video>
     </Router>
   );
 }

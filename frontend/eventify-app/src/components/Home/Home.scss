@@ -4,22 +4,41 @@
     height: 100%;
 
     .home {
-        &-headbar {
-            height: 7%;
-            justify-content: space-evenly;
-            background-color: $hoverColor;
-            color: white;
-
-            .bar-tabs:hover {
-                background-color: $bgColor;
-            }
-        }
 
         &-container {
-            height: 93%;
+            background: white;
+            padding-bottom: 250px;
+            position: relative;
+            .footer {
+                background: $bgColor;
+                color: white;
+                margin-top: 15px;
+                min-height: 10vh;
+                align-items: flex-start;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 15px;                
+                padding-bottom: 50px;
+                &-col {
+                    padding: 15px;
 
-            & > div {
-                height: 100%;
+                    .logo-img {
+                        background: url('../../assets/images/logo.png');
+                        height: 60px;
+                        width: 170px;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                    }
+                    .icon-app {
+                        padding-top: 10px;
+                        font-size: 1.3rem;
+                        & > * {
+                            margin: 0 5px;
+                        }
+                    }
+                }
             }
         }
     }

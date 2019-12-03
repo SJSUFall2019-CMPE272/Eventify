@@ -8,7 +8,7 @@ import axios from "axios";
 class Admin extends Component {
   state = {
     sidebarTabs: ["Intro", "Create Event", "View Events"],
-    activeTab: 2,
+    activeTab: 0,
     eventList: []
   };
 
@@ -23,6 +23,12 @@ class Admin extends Component {
   }
 
   render() {
+    let privilegeLevel = sessionStorage.getItem("privileges");
+    if (!privilegeLevel) {
+      this.props.history.push("/");
+    } else if (privilegeLevel == "organizer") {
+      this.props.history.push("/userhome");
+    }
     let route;
 
     let renderSidebarTabs = this.state.sidebarTabs.map((tab, i) => {
@@ -45,10 +51,15 @@ class Admin extends Component {
         route = <AdminHome />;
         break;
       case 1:
-        route = <AddEvent />;
+        route = <AddEvent onModify={this.componentDidMount.bind(this)} />;
         break;
       case 2:
-        route = <EditEvent eventList={this.state.eventList} />;
+        route = (
+          <EditEvent
+            eventList={this.state.eventList}
+            onModify={this.componentDidMount.bind(this)}
+          />
+        );
         break;
       default:
         route = null;
