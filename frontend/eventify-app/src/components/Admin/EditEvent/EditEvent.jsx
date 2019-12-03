@@ -109,9 +109,8 @@ class EditEvent extends Component {
             <td>{new Date(currEvent.event_date).toLocaleDateString()}</td>
             <td>
               <Button
-                variant="primary"
+                variant="outline-primary"
                 onClick={e => this.editModalShow(currEvent)}
-                size="sm"
               >
                 <FontAwesomeIcon icon={faEdit} />
                 Edit
@@ -119,10 +118,9 @@ class EditEvent extends Component {
             </td>
             <td>
               <Button
-                variant="danger"
+                variant="outline-danger"
                 value={currEvent.email}
                 onClick={e => this.deleteOpen(e)}
-                size="sm"
               >
                 <FontAwesomeIcon icon={faTrashAlt} />
                 Delete

@@ -53,21 +53,27 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
 
 .btn {
     text-decoration: none;
-    color: white;
     padding: 10px 30px;
     display: inline-block;
     position: relative;
-    border: 1px solid rgba(0,0,0,0.21);
-    border-bottom: 4px solid rgba(0,0,0,0.4);
     border-radius: 4px;
     text-shadow: 0 1px 0 rgba(0,0,0,0.15);
     font-weight: 600;
     &-primary {
         // background: linear-gradient($lightBlue 0%, $darkBlue 100%);
+        color: white;
+        border: 1px solid rgba(0,0,0,0.21);
+        border-bottom: 4px solid rgba(0,0,0,0.4);
         &:hover {
             // background-color: $hoverColor;
             border-color: $bgColor;
         }
+    }
+
+    &-danger {
+        color: white;
+        border: 1px solid rgba(0,0,0,0.21);
+        border-bottom: 4px solid rgba(0,0,0,0.4);
     }
 }
 

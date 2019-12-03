@@ -110,7 +110,7 @@ class EditVendor extends Component {
             <td>{currVendor.vendor_desc}</td>
             <td>
               <Button
-                variant="primary"
+                variant="outline-primary"
                 onClick={e => this.editModalShow(currVendor)}
               >
                 <FontAwesomeIcon icon={faEdit} />
@@ -119,7 +119,7 @@ class EditVendor extends Component {
             </td>
             <td>
               <Button
-                variant="danger"
+                variant="outline-danger"
                 value={currVendor.email}
                 onClick={e => this.deleteOpen(e)}
               >
