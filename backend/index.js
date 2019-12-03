@@ -62,7 +62,7 @@ app.listen(3050, err => {
     if (err) console.error(err);
     console.log("Server Listening on port 3050");
 });
-app.get("/", async function (req, res) {
+app.get("/createreport", async function (req, res) {
     let vendorData = [];
     let rfidData = [];
     let userData = []
@@ -93,8 +93,10 @@ app.get("/", async function (req, res) {
     // console.log("result123", result123);
     while ((document = await cursor.next())) {
         let readerNum = document.rfid_reader_id;
+        let organizer_id = document.organizer_id;
+        let company_name = document.company_name;
         if (readerNum !== null && readerNum !== "" && readerNum !== undefined) {
-            newVendor = new Report({ vendor_id: readerNum });
+            newVendor = new Report({ vendor_id: readerNum, organizer_id: organizer_id, company_name: company_name });
             newVendor.save().then(async vendor => {
                 const custCursor = await Users.find();
                 let custDocument;
