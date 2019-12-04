@@ -10,7 +10,7 @@ class GenerateLeads extends Component {
   }
   generateLead = (e) => {
     e.preventDefault();
-    axios.get(`http://localhost:3050/getlead/` + this.state.readerNum).then(response => {
+    axios.get(`http://localhost:5000/getlead/` + this.state.readerNum).then(response => {
       console.log(JSON.stringify(response.data.result));
       let resp = response.data.result;
       let headers = [
