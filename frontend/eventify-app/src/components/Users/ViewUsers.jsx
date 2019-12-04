@@ -58,14 +58,14 @@ class ViewUsers extends Component {
             <td>{currUser.last_name}</td>
             <td>{currUser.phone_num}</td>
             <td>{currUser.email}</td>
-            <td>{currUser.rfid}</td>
+            <td>{currUser.rfid_id}</td>
             <td>
               <Button
                 variant="outline-success"
                 onClick={e => {
                   this.setState({
                     rfidModal: true,
-                    rfidNumber: currUser.rfid,
+                    rfidNumber: currUser.rfid_id,
                     email: currUser.email
                   });
                 }}
