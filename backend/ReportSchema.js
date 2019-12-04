@@ -10,6 +10,8 @@ const ReportSchema = new Schema(
     visitors: [
       {
         card_number: String,
+        first_name: String,
+        email: String,
         total_time: Number
       }
     ]

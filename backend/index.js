@@ -52,7 +52,7 @@ mongo.connect(CONNECTION_URL, {
         console.log("Connected to mongodb");
         const db = client.db('Eventify');
         Vendors = db.collection('vendors');
-        Users = db.collection('Users');
+        Users = db.collection('users');
         rfid_tags = db.collection('rfid_tags');
     }
 });
@@ -63,7 +63,8 @@ app.listen(3050, err => {
     console.log("Server Listening on port 3050");
 });
 app.get("/getlead/:vendorId", function (req, res) {
-    Report.find({ vendor_id: req.params.vendorId }).where('visitors.total_time').gt(8).then(visitors => {
+    console.log("aaa", req.params.vendorId);
+    Report.find({ "visitors.total_time": { "$gt": .5 }, vendor_id: Number(req.params.vendorId) }).then(visitors => {
         console.log(visitors);
         console.log(visitors.card_number);
         res.json({ message: "Report Found", result: visitors });
@@ -104,12 +105,14 @@ app.get("/createreport", async function (req, res) {
         let company_name = document.company_name;
         let vendor_type = document.vendor_type;
         if (readerNum !== null && readerNum !== "" && readerNum !== undefined) {
-            newVendor = new Report({ vendor_id: readerNum, organizer_id: organizer_id, company_name: company_name, vendor_type:vendor_type });
+            newVendor = new Report({ vendor_id: readerNum, organizer_id: organizer_id, company_name: company_name, vendor_type: vendor_type });
             newVendor.save().then(async vendor => {
                 const custCursor = await Users.find();
                 let custDocument;
                 while ((custDocument = await custCursor.next())) {
-                    let cardNum = custDocument.card_id;
+                    let cardNum = custDocument.rfid_id;
+                    let custFirstName = custDocument.first_name;
+                    let custEmail = custDocument.email;
                     console.log(cardNum);
                     let rfidCursor = await rfid_tags.find({ 'id': cardNum, 'reader': readerNum });
                     let rfidDocument;
@@ -125,7 +128,7 @@ app.get("/createreport", async function (req, res) {
                             { 'vendor_id': readerNum },
                             {
                                 $push: {
-                                    visitors: { card_number: cardNum, total_time: sum }
+                                    visitors: { card_number: cardNum, first_name: custFirstName, email: custEmail, total_time: sum }
                                 }
                             }
                         ).then(re => console.log(JSON.stringify(re)));
