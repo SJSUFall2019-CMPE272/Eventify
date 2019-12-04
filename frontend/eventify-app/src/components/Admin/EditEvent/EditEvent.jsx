@@ -202,10 +202,10 @@ class EditEvent extends Component {
         console.log(currVendor.company_name);
         if (!b.length) {
           b = [
-            { y: currVendor.visitors.length, label: currVendor.company_name }
+            { y: currVendor.visitors.length, label: currVendor.vendor_name+" ("+currVendor.company_name+")" }
           ];
         } else {
-          b.push({ y: currVendor.visitors.length, label: currVendor.company_name });
+          b.push({ y: currVendor.visitors.length, label: currVendor.vendor_name+" ("+currVendor.company_name+")" });
         }
       });
       this.setState({ topfivespeaker: b });
