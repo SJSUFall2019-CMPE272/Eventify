@@ -13,6 +13,12 @@ class Home extends Component {
   state = {};
 
   render() {
+    let privilegeLevel = sessionStorage.getItem("privileges");
+    if (privilegeLevel == "organizer") {
+      this.props.history.push("/userhome");
+    } else if (privilegeLevel == "admin") {
+      this.props.history.push("/admin");
+    }
     return (
       <div className="home-wrapper">
         <div className="home-container">
@@ -34,7 +40,9 @@ class Home extends Component {
             </div>
           </Carousel>
 
-          <div className="footer flex">
+          <div className="footer row flex">
+
+          <div className="footer row flex" id="footer">
             <div className="col-sm-3 footer-col">
               <div className="logo-img"></div>
               <div className="col-sm-12">
@@ -70,6 +78,7 @@ class Home extends Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   }

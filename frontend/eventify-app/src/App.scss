@@ -77,6 +77,10 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
     }
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .border-div {
     height: 5px;
     background: $horizontalGradient;
@@ -101,6 +105,7 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
         top: 0;
         right: -50%;
         transition: all 0.75s ease;
+        border: solid 2px;
         &.show {
             right: 0;
         }
@@ -119,7 +124,7 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
             }
         }
         .sidebar-body {
-            background: $bgColor;
+            background: $hoverColor;
             height: 92vh;
             .flex.pointer {
                 flex-direction: column;

@@ -1,0 +1,62 @@
+.btn {
+    text-decoration: none;
+    padding: 10px 30px;
+    display: inline-block;
+    position: relative;
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+    font-weight: 600;
+}
+
+.btn-primary {
+    color: white;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom: 4px solid rgba(0,0,0,0.4);
+}
+
+.app-wrapper {
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.navbar-wrapper {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    height: 8vh;
+    background: rgb(52, 60, 73);
+    justify-content: space-between;
+    padding-right: 15px;
+    color: #fff;
+    z-index: 99;
+}
+.logo {    
+    height: 100%;
+    width: 20vw;
+}
+
+.logo img {    
+    height: 100%;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+  }
+
+  .card {
+      padding: 15px;
+  }
+
+  .border-div {
+    height: 5px;
+    background: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,217,1) 50%, rgba(39,157,230,1) 100%);
+    margin: 15px 0;
+}

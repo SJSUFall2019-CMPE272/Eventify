@@ -7,37 +7,54 @@ import EditVendor from "./EditVendor";
 import UserHome from "./UserHome";
 import Report from "./Report";
 import axios from "axios";
+import ViewUsers from "./ViewUsers";
 
 class Users extends Component {
   state = {
     vendorList: [],
-    profile:{},
-    sidebarTabs: ["Intro", "Add Vendors", "View Vendors", "Reports"],
+    profile: {},
+    userList: [],
+    sidebarTabs: [
+      "Intro",
+      "Add Vendors",
+      "View Vendors",
+      "View Attendees",
+      "Reports"
+    ],
     activeTab: 0
   };
 
-
-  getVendor(){
+  getVendor() {
     axios
-    .get("http://localhost:5000/vendor/" + sessionStorage.getItem("email"))
-    .then(response => {
-      console.log(response.data.result);
-      this.setState({ vendorList: response.data.result });
-    });
-  };
+      .get("http://localhost:5000/vendor/" + sessionStorage.getItem("email"))
+      .then(response => {
+        console.log(response.data.result);
+        this.setState({ vendorList: response.data.result });
+      });
+  }
 
-  getProfile(){
+  getProfile() {
     axios
-    .get("http://localhost:5000/profile/" + sessionStorage.getItem("email"))
-    .then(response => {
-      console.log(response.data.result);
-      this.setState({ profile: response.data.result });
-    });
-  };
+      .get("http://localhost:5000/profile/" + sessionStorage.getItem("email"))
+      .then(response => {
+        console.log(response.data.result);
+        this.setState({ profile: response.data.result });
+      });
+  }
+
+  getUsers() {
+    axios
+      .get("http://localhost:5000/users/" + sessionStorage.getItem("email"))
+      .then(response => {
+        console.log(response.data.result);
+        this.setState({ userList: response.data.result });
+      });
+  }
 
   componentDidMount() {
     this.getVendor();
     this.getProfile();
+    this.getUsers();
   }
 
   onSelectNewTab = index => {
@@ -70,7 +87,12 @@ class Users extends Component {
 
     switch (this.state.activeTab) {
       case 0:
-        route = <UserHome profile={this.state.profile} onModify={this.componentDidMount.bind(this)}/>;
+        route = (
+          <UserHome
+            profile={this.state.profile}
+            onModify={this.componentDidMount.bind(this)}
+          />
+        );
         break;
       case 1:
         route = <AddVendor onModify={this.componentDidMount.bind(this)} />;
@@ -83,8 +105,16 @@ class Users extends Component {
           />
         );
         break;
-      case 3:
+      case 4:
         route = <Report />;
+        break;
+      case 3:
+        route = (
+          <ViewUsers
+            userList={this.state.userList}
+            onModify={this.componentDidMount.bind(this)}
+          />
+        );
         break;
       default:
         route = null;

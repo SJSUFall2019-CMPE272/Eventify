@@ -285,6 +285,24 @@ app.post('/deleteVendor', function(req,res){
     })
 }); 
 
+
+//get organizer id for given organizer name
+app.get('/getOrganizer/:event_name', function(req,res){
+    Organizer.find({event_name:req.params.event_name}).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+
+
 //add user through online form
 app.post('/addUser', function(req,res){   
     User.findOne({ email: req.body.email }).then(user => {
@@ -299,15 +317,14 @@ app.post('/addUser', function(req,res){
                 if (err) throw err;
                 password = hash;
             const user = new User({
-                "organizer_id":req.body.organizer_id, 
-                "event_name":req.body.event_name,
+                "organizer_id":req.body.organizer_id,
                 "first_name": req.body.first_name, 
                 "last_name":req.body.last_name,
                 "company_name":req.body.company_name, 
                 "email":req.body.email,
                 "password":password,
                 "phone_num":req.body.phone_num,
-                "rfid_id":""
+                "rfid_id":" "
             });
 
             user.save().then(()=>{
@@ -448,4 +465,47 @@ app.get('/report/:email', function(req,res){
             res.json({message:"Report Found", result:report});
         }
     })
+});
+
+
+//organizer get all users who attended
+app.get('/usersAttended/:email', function(req,res){
+    console.log("dcyvsdcvsdiucviudsvcuisdvciuvsdiucvsdiucvdsiuc");
+    User.find({organizer_id:req.params.email, rfid_id:{$ne:" "}}).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:''});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+//organizers get all registered users
+app.get('/users/:organizer_id', function(req,res){
+    User.find({organizer_id:req.params.organizer_id}).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+//organizer update user's rfid id
+app.post('/updateRfid',function(req,res){
+    console.log("organizer update user's rfid id", req.body)
+    User.findOneAndUpdate({email:req.body.email},{
+        rfid_id:req.body.rfid_number
+    }).then(user =>{
+        console.log("Updated");
+        res.json({message:"Profile Updated"});
+    }).catch(err => res.status(400).json(err));
 });

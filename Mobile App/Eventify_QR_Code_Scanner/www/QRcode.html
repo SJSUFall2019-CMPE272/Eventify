@@ -1,89 +1,140 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
+  <head>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
 
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <title>QRCode Reader APP</title>
-<style>
-        .topnav {
-  background-color: #333;
-  overflow: hidden;
-}
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"
+    />
+    
+    <link
+      rel="stylesheet"
+      href="bs/css/bootstrap.min.css"
+    />
+    <script
+      src="js/jquery-3.4.1.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    ></script>
+    <script
+      src="bs/js/bootstrap.min.js"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <title>QRCode Reader APP</title>
+    <style>
+      .topnav {
+        background-color: #333;
+        overflow: hidden;
+      }
 
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: right;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+      /* Style the links inside the navigation bar */
+      .topnav a {
+        float: right;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
 
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
+      /* Change the color of links on hover */
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
 
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-</style>
-    </head>
+      /* Add a color to the active/current link */
+      .topnav a.active {
+        background-color: #4caf50;
+        color: white;
+      }
+    </style>
+  </head>
 
-    <body>
-        <div class="topnav">
-          <a class="active" onclick="window.location.href='./index.html'">LOGOUT</a>
+  <body>
+    <video autoplay muted loop id="myVideo">
+        <source src="img/video.mp4" type="video/mp4" />
+    </video>
+    <div class="navbar-wrapper flex">
+        <div class="logo">
+        <img src="img/logo.png" alt="logo" />
         </div>
-
-        <div data-role="page" id="home">
-            <div data-role="header">
-                <center><h1>EVENTIFY</h1></center>
-            </div>
-
-            <div data-role="main" class="ui-content">
-                <p><center>
-                    <a target="_blank" href="javascript:scan();" style="text-decoration: none;"><button  style="height:200px;width:200px;font: bold 40px Arial;">SCAN</button></a>
-                </center>
-                </p>
-            </div>
+    </div>
+    <div class="app-wrapper">
+        <div class="card col-sm-12">
+            <center><h2>QR Code Scan</h2></center>
+            <div class="border-div"></div>
+            <p>Scan the QR Code placed at multiple locations to get details about the stall / speaker</p>
+            <br>
+            <button class="btn btn-primary" id="sendBtn">Scan !</button>
         </div>
+    </div>
 
-        <div data-role="page" id="display">
-            <div data-role="header">
-                <a target="_blank" href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
-                <h1>Display</h1>
-            </div>
+      <div data-role="main" class="ui-content">
+        <p>
+          <center>
+            <a
+              target="_blank"
+              href="javascript:scan();"
+              style="text-decoration: none;"
+              ><button style="height:200px;width:200px;font: bold 40px Arial;">
+                SCAN
+              </button></a
+            >
+          </center>
+        </p>
+      </div>
+    </div>
 
-        </div>
+    <div data-role="page" id="display">
+      <div data-role="header">
+        <a
+          target="_blank"
+          href="#home"
+          class="ui-btn ui-icon-home ui-btn-icon-left"
+          >Home</a
+        >
+        <h1>Display</h1>
+      </div>
+    </div>
 
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script>
-            function scan()
-            {
-                cordova.plugins.barcodeScanner.scan(
-                    function (result) {
-                        if(!result.cancelled)
-                        {
-                            if(result.format == "QR_CODE")
-                            {
-                                    var value = result.text;
-                                    window.open(result.text, '_blank', 'location=yes');
-                            }
-                        }
-                    },
-                    function (error) {
-                        alert("Scanning failed: " + error);
-                    }
-               );
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script>
+        $("#sendBtn").click(function() {
+        cordova.plugins.barcodeScanner.scan(
+          function(result) {
+            if (!result.cancelled) {
+              if (result.format == "QR_CODE") {
+                var value = result.text;
+                window.open(result.text, "_blank", "location=yes");
+              }
             }
-        </script>
-    </body>
+          },
+          function(error) {
+            alert("Scanning failed: " + error);
+          }
+        );
+        });
+    //   function scan() {
+    //     cordova.plugins.barcodeScanner.scan(
+    //       function(result) {
+    //         if (!result.cancelled) {
+    //           if (result.format == "QR_CODE") {
+    //             var value = result.text;
+    //             window.open(result.text, "_blank", "location=yes");
+    //           }
+    //         }
+    //       },
+    //       function(error) {
+    //         alert("Scanning failed: " + error);
+    //       }
+    //     );
+    //   }
+    </script>
+  </body>
 </html>

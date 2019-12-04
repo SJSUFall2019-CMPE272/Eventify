@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import * as CanvasJSReact from "../../canvasjs.react/canvasjs.react";
+import { CanvasJSChart } from "../../canvasjs.react/canvasjs.react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -12,7 +14,8 @@ import {
   faTimes,
   faCheck,
   faEdit,
-  faTrashAlt
+  faTrashAlt,
+  faChartLine
 } from "@fortawesome/free-solid-svg-icons";
 
 class EditEvent extends Component {
@@ -28,7 +31,11 @@ class EditEvent extends Component {
     event_desc: "",
     event_location: "",
     date: "",
-    idSelected: ""
+    idSelected: "",
+    statsModal: false,
+    arr:[],
+    topfivestall:[],
+    topfivespeaker:[]
   };
 
   editModalClose = () => {
@@ -80,6 +87,10 @@ class EditEvent extends Component {
     this.setState({ deleteModal: false });
   };
 
+  statsClose = () => {
+    this.setState({ statsModal: false , arr:[], topfivestall:[], topfivespeaker:[]});
+  };
+
   onDelete = e => {
     console.log("delete function call");
     e.preventDefault();
@@ -93,6 +104,115 @@ class EditEvent extends Component {
     });
   };
 
+  onStats = e => {
+    this.setState({ statsModal: true });
+    let arr=[]
+    axios
+      .get(
+        "http://localhost:5000/users/" + e
+      )
+      .then(response => {
+        console.log(response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+        let count=0;
+            response.data.result.map((currUser, index) => {
+                count++;
+            });
+
+            if(!arr.length){
+                arr = [
+                    { label: "Total registered attendees", y: count }
+                ];
+            }else{
+                arr.push({ label: "Total registered attendees", y: count });
+            }
+            axios
+      .get(
+        "http://localhost:5000/usersAttended/" + e
+      )
+      .then(response => {
+        console.log(response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+        let count1=0;
+            response.data.result.map((currUser, index) => {
+                count1++;
+            });
+            
+            if(!arr.length){
+                arr = [
+                    { label: "Attendees who came to the event", y: count1}
+                ];
+            }else{
+                arr.push({ label: "Attendees who came to the event", y: count1 });
+            }
+            this.setState({arr:arr});
+            console.log("arrrrrrrrrrrrrrr", this.state.arr);
+    }
+
+      });
+    }
+
+      });
+
+      axios
+      .get(
+        "http://localhost:5000/report/topten/" + e
+      )
+      .then(response => {
+        console.log(response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+        let b = [];
+        response.data.result.map((currVendor, index) => {
+          console.log(currVendor.visitors.length);
+          console.log(currVendor.company_name);
+          if (!b.length) {
+            b = [
+              { y: currVendor.visitors.length, label: currVendor.company_name }
+            ];
+          } else {
+            b.push({ y: currVendor.visitors.length, label: currVendor.company_name });
+          }
+        });
+        this.setState({ topfivestall: b });
+    }
+
+      });
+
+      axios
+    .get(
+      "http://localhost:5000/report/toptenspeakers/" + e
+    )
+    .then(response => {
+      console.log(response.data.result);
+      if(response.data.result.length===0){
+      }
+      else{
+      let b = [];
+      response.data.result.map((currVendor, index) => {
+        console.log(currVendor.visitors.length);
+        console.log(currVendor.company_name);
+        if (!b.length) {
+          b = [
+            { y: currVendor.visitors.length, label: currVendor.vendor_name+" ("+currVendor.company_name+")" }
+          ];
+        } else {
+          b.push({ y: currVendor.visitors.length, label: currVendor.vendor_name+" ("+currVendor.company_name+")" });
+        }
+      });
+      this.setState({ topfivespeaker: b });
+    }
+    });
+
+  };
   render() {
     console.log(this.props.eventList);
     let table, header;
@@ -105,12 +225,11 @@ class EditEvent extends Component {
         return (
           <tr key={index}>
             <td>{currEvent.event_name}</td>
-            <td>{currEvent.first_name}</td>
             <td>{currEvent.phone_num}</td>
             <td>{currEvent.event_location}</td>
             <td>{new Date(currEvent.event_date_from).toLocaleDateString()}</td>
             <td>{new Date(currEvent.event_date_to).toLocaleDateString()}</td>
-            
+
             <td>
               <Button
                 variant="outline-primary"
@@ -123,11 +242,20 @@ class EditEvent extends Component {
             <td>
               <Button
                 variant="outline-danger"
-                value={currEvent.email}
-                onClick={e => this.deleteOpen(e)}
+                onClick={e => {this.setState({deleteModal: true, idSelected: currEvent.email})}}
               >
                 <FontAwesomeIcon icon={faTrashAlt} />
                 Delete
+              </Button>
+            </td>
+
+            <td>
+              <Button
+                variant="outline-info"
+                onClick={e => this.onStats(currEvent.email)}
+              >
+                <FontAwesomeIcon icon={faChartLine} />
+                Stats
               </Button>
             </td>
           </tr>
@@ -138,19 +266,123 @@ class EditEvent extends Component {
           <thead>
             <tr>
               <th>Event Name</th>
-              <th>First Name</th>
               <th>Phone no</th>
               <th>Location</th>
               <th>Date From</th>
               <th>Date To</th>
               <th>Edit</th>
               <th>Delete</th>
+              <th>Stats</th>
             </tr>
           </thead>
           <tbody>{table}</tbody>
         </Table>
       );
     }
+
+
+    const options = {
+      animationEnabled: true,
+      theme: "light1",
+      title: {
+          text: "Total registered attendees vs attendees who came to the event",
+          fontFamily:"Segoe UI"
+      },
+      axisY: {
+      title: "Number of Attendees",
+      },
+      data: [{
+          type: "column",
+          indexLabel: "{y}",
+          labelAngle: 180,		
+          indexLabelFontColor: "black",
+          dataPoints: this.state.arr
+      }]
+  }
+  const options1 = {
+    animationEnabled: true,
+    exportEnabled: false,
+    theme: "light1", // "light1", "dark1", "dark2"
+    title: {
+      text: "Top Five Stalls",
+      fontFamily:"Segoe UI"
+    },subtitles:[
+      {
+          text: "Number of attendees",
+          fontSize: 15,
+          fontFamily:"Segoe UI"
+      }
+      ],
+    data: [
+      {
+        type: "pie",
+        indexLabel: "{label}: {y}",
+        startAngle: -90,
+        dataPoints: this.state.topfivestall
+      }
+    ]
+  };
+
+  const options2 = {
+    animationEnabled: true,
+    exportEnabled: false,
+    theme: "light1", // "light1", "dark1", "dark2"
+    title: {
+      text: "Top Five Speakers",
+      fontFamily:"Segoe UI"
+    },
+    subtitles:[
+        {
+            text: "Number of attendees",
+            fontSize: 15,
+            fontFamily:"Segoe UI"
+        }
+        ],
+    data: [
+      {
+        type: "pie",
+        indexLabel: "{label}: {y}",
+        startAngle: -90,
+        dataPoints: this.state.topfivespeaker
+      }
+    ]
+  };
+
+let chart,top5,top52;
+  if(this.state.arr.length===0){
+    chart=<center><h3></h3></center>
+  }
+  else{
+    chart=<p>
+    <CanvasJSChart options={options} />
+    </p>
+
+  }
+
+  if(this.state.topfivestall.length===0){
+    top5= <center><h3></h3></center>
+  }else{
+    top5=<p>
+    <CanvasJSChart options={options1} />
+    </p>
+
+  }
+
+  if(this.state.topfivespeaker.length===0){
+    top52= <center><h3></h3></center>
+  }else{
+    top52=<p>
+    <CanvasJSChart options={options2} />
+    </p>
+  }
+
+  if(this.state.arr.length===0 && this.state.topfivestall.length===0 && this.state.topfivespeaker.length===0){
+    chart= <center><h3>No data available yet</h3></center>
+  }
+  
+
+
+
 
     return (
       <React.Fragment>
@@ -370,6 +602,25 @@ class EditEvent extends Component {
               No
             </Button>
           </Modal.Footer>
+        </Modal>
+
+        <Modal
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={this.state.statsModal}
+          onHide={this.statsClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Event Statistics
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {chart}
+            {top5}
+            {top52}
+          </Modal.Body>
         </Modal>
       </React.Fragment>
     );

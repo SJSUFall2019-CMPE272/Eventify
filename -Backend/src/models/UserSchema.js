@@ -7,10 +7,6 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
-    event_name: {
-        type: String,
-        required: true
-      },
     first_name: {
       type: String,
       required: true

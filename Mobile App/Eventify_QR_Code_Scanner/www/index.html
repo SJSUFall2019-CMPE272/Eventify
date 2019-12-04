@@ -1,57 +1,99 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Login</title>
-            <meta charset="utf-8">
-         <link rel="stylesheet" type="text/css" href="bs/css/bootstrap.min.css">
-         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    </head>
-   
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            LOGIN
-                        </div>
-                            <div class="panel-body">
-                                <form id="form"> 
-                                <div class="form-group">
-                                    <input type="email" name="email" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" class="form-control">
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <button type="button" id="sendBtn" class="btn btn-default">Login</button>
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>              
+  <head>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="bs/css/bootstrap.min.css"
+    />
+    <script
+      src="js/jquery-3.4.1.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    ></script>
+    <script
+      src="bs/js/bootstrap.min.js"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+  </head>
+
+  <body>
+    <video autoplay muted loop id="myVideo">
+      <source src="img/video.mp4" type="video/mp4" />
+    </video>
+    <div class="navbar-wrapper flex">
+      <div class="logo">
+        <img src="img/logo.png" alt="logo" />
+      </div>
+    </div>
+    <div class="app-wrapper">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title h4">Login</div>
+        </div>
+        <div style="font-size: 16px; color: red;"><center></center></div>
+        <div class="modal-body">
+          <div>Please login using the details provided</div>
+          <p></p>
+          <div class="modal-container">
+            <div class="form-group">
+              <label class="form-label" for="formBasicEmail"
+                >Email address</label
+              >
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupPrepend">@</span>
+                </div>
+                <input
+                  placeholder="Enter email"
+                  type="email"
+                  id="formBasicEmail"
+                  class="form-control"
+                />
+              </div>
             </div>
-        </div> 
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="bs/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
+            <div class="form-group">
+              <label class="form-label" for="formBasicPassword">Password</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupPrepend">#</span>
+                </div>
+                <input
+                  placeholder="Password"
+                  type="password"
+                  id="formBasicPassword"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="sendBtn">
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="bs/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $("#sendBtn").click(function() {
+        var form = $("#form").serialize();
 
-
-            $("#sendBtn").click(function(){
-                var form=$("#form").serialize();
-                console.log("hghsdhggh",form); 
-                 
-                $.post("http://13.57.26.201:5000/login",form,function(response) {
-                    if(response.authFlag)
-                    {
-                      window.open("./QRcode.html");
-                        alert(response);
-                }
-
-                })
-            })
-        </script>
-    </body>
+        $.post("http://13.57.26.201:5000/login", form, function(response) {
+          if (response.authFlag) {
+            window.open("./QRcode.html");
+            alert(response);
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
-
