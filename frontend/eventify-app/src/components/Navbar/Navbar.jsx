@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import { Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -189,12 +190,18 @@ class Navbar extends Component {
     return (
       <div className="navbar-wrapper flex">
         <div className="logo">
-          <img src="images/logo.png" alt="logo" />
+          <Link to="/">
+            <img src="images/logo.png" alt="logo" />
+          </Link>
         </div>
         <div
           className={
             "login-container flex pointer " +
-            (this.props.history.location.pathname == "/" ? "" : "hidden")
+            (["organizer", "admin"].indexOf(
+              sessionStorage.getItem("privileges")
+            ) > -1
+              ? "hidden"
+              : "")
           }
         >
           <div className="login-item flex ">
@@ -210,7 +217,11 @@ class Navbar extends Component {
         <div
           className={
             "login-container flex pointer " +
-            (this.props.history.location.pathname != "/" ? "" : "hidden")
+            (["organizer", "admin"].indexOf(
+              sessionStorage.getItem("privileges")
+            ) > -1
+              ? ""
+              : "hidden")
           }
         >
           <div
@@ -334,7 +345,9 @@ class Navbar extends Component {
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <div style={{ fontSize: 16, color: "red" }}>
-            {this.state.fail ? "Invalid Login Credentials" : ""}
+            <center>
+              {this.state.fail ? "Invalid Login Credentials" : ""}
+            </center>
           </div>
           <Modal.Body>
             <div>Please login using the details provided</div>

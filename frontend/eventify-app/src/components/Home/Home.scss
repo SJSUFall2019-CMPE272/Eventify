@@ -7,7 +7,6 @@
 
         &-container {
             background: white;
-            padding-bottom: 250px;
             position: relative;
             .footer {
                 background: $bgColor;
@@ -15,12 +14,12 @@
                 margin-top: 15px;
                 min-height: 10vh;
                 align-items: flex-start;
-                position: absolute;
                 bottom: 0;
                 left: 0;
                 width: 100%;
                 padding: 15px;                
                 padding-bottom: 50px;
+                margin-left: 0;
                 &-col {
                     padding: 15px;
 

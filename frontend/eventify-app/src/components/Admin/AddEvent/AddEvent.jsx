@@ -27,6 +27,13 @@ class AddEvent extends Component {
   };
 
   onRegister = e => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.setState({ validated: true });
+      return;
+    }
     e.preventDefault();
     let data = {
       first_name: this.state.first_name,
@@ -103,7 +110,7 @@ class AddEvent extends Component {
             <Form
               noValidate
               validated={this.state.validated}
-              // onSubmit={e => this.handleSubmit(e)}
+              onSubmit={e => this.onRegister(e)}
             >
               <Form.Group as={Row}>
                 <Form.Label column md={4}>
@@ -152,7 +159,7 @@ class AddEvent extends Component {
                 <Col sm={8}>
                   <Form.Control
                     required
-                    type="text"
+                    type="email"
                     placeholder="Email Address"
                     value={this.state.email}
                     onChange={e => this.setState({ email: e.target.value })}
@@ -292,9 +299,7 @@ class AddEvent extends Component {
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
-              <Button type="submit" onClick={e => this.onRegister(e)}>
-                Submit form
-              </Button>
+              <Button type="submit">Submit form</Button>
             </Form>
           </div>
         </div>
