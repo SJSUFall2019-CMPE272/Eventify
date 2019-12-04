@@ -8,6 +8,7 @@ import UserHome from "./UserHome";
 import Report from "./Report";
 import axios from "axios";
 import ViewUsers from "./ViewUsers";
+import GenerateLeads from "./GenerateLeads";
 
 class Users extends Component {
   state = {
@@ -19,7 +20,8 @@ class Users extends Component {
       "Add Vendors",
       "View Vendors",
       "View Attendees",
-      "Reports"
+      "Reports",
+      "Generate Leads"
     ],
     activeTab: 0
   };
@@ -115,6 +117,9 @@ class Users extends Component {
             onModify={this.componentDidMount.bind(this)}
           />
         );
+        break;
+      case 5:
+        route = <GenerateLeads />;
         break;
       default:
         route = null;
