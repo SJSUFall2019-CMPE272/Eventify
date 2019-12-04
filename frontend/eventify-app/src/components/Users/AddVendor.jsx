@@ -183,7 +183,7 @@ class AddVendor extends Component {
                 <Col sm={8}>
                   <Form.Control
                     required
-                    type="text"
+                    type="email"
                     placeholder="Email Address"
                     value={this.state.email}
                     onChange={e => this.setState({ email: e.target.value })}
