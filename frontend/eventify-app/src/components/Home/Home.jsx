@@ -13,6 +13,12 @@ class Home extends Component {
   state = {};
 
   render() {
+    let privilegeLevel = sessionStorage.getItem("privileges");
+    if (privilegeLevel == "organizer") {
+      this.props.history.push("/userhome");
+    } else if (privilegeLevel == "admin") {
+      this.props.history.push("/admin");
+    }
     return (
       <div className="home-wrapper">
         <div className="home-container">
