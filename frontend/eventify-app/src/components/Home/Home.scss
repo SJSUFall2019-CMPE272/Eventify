@@ -8,6 +8,15 @@
         &-container {
             background: white;
             position: relative;
+            .slider-wrapper {
+                img {
+                    max-height: 60vh;  /* change this to whatever you want */
+                    width: 100%;
+                }
+            }
+            .home-row {
+                height: 600px;
+            }
             .footer {
                 background: $bgColor;
                 color: white;

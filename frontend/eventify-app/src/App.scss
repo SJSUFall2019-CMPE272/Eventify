@@ -77,6 +77,10 @@ $horizontalGradient: linear-gradient(90deg, rgba(6,225,205,1) 0%, rgba(21,193,21
     }
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .border-div {
     height: 5px;
     background: $horizontalGradient;

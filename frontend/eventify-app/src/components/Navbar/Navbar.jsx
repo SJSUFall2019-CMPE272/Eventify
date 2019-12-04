@@ -61,6 +61,18 @@ class Navbar extends Component {
     this.props.history.push("/userhome");
   };
 
+  componentDidMount() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute("href")).scrollIntoView({
+          behavior: "smooth"
+        });
+      });
+    });
+  }
+
   onLogin = e => {
     e.preventDefault();
     //this.handleClose();
@@ -204,10 +216,10 @@ class Navbar extends Component {
               : "")
           }
         >
-          <div className="login-item flex ">
+          <a className="login-item flex " href="#footer">
             <FontAwesomeIcon icon={faPhoneAlt} />
             Contact Us
-          </div>
+          </a>
           <div className="login-item flex " onClick={this.handleShow}>
             <FontAwesomeIcon icon={faSignInAlt} />
             Login
