@@ -77,11 +77,11 @@ class Report extends Component {
         console.log(currVendor.company_name);
         if (!b.length) {
           b = [
-            { y: currVendor.visitors.length, label: currVendor.company_name }
+            { y: currVendor.visitors.length, label: currVendor.vendor_name+" ("+currVendor.company_name+")" }
           ];
           i++;
         } else {
-          b.push({ y: currVendor.visitors.length, label: currVendor.company_name });
+          b.push({ y: currVendor.visitors.length, label: currVendor.vendor_name+" ("+currVendor.company_name+")" });
           i++;
         }
       });
@@ -140,17 +140,17 @@ class Report extends Component {
                     sum=Math.ceil(sum);
                     if(!d.length){
                         d = [
-                            { label: currObject.company_name, y: sum }
+                            { label: currObject.vendor_name+" ("+currObject.company_name+")", y: sum }
                         ];
                     }else{
-                        d.push({ label: currObject.company_name, y: sum });
+                        d.push({ label: currObject.vendor_name+" ("+currObject.company_name+")", y: sum });
                     }
                     if(!f.length){
                         f = [
-                            { label: currObject.company_name, y: sum/countd }
+                            { label: currObject.vendor_name+" ("+currObject.company_name+")", y: sum/countd }
                         ];
                     }else{
-                        f.push({ label: currObject.company_name, y: sum/countd });
+                        f.push({ label: currObject.vendor_name+" ("+currObject.company_name+")", y: sum/countd });
                     }
                 }
             });
