@@ -143,6 +143,7 @@ class Navbar extends Component {
     axios.post("http://localhost:5000/events/update", data).then(response => {
       console.log(response.data.message);
       this.profileClose();
+      sessionStorage.setItem("firstname", response.data.first_name);
       window.location.reload(true);
     });
   };
