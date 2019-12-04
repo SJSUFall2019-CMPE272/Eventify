@@ -44,7 +44,7 @@ class Users extends Component {
 
   getUsers() {
     axios
-      .get("http://localhost:5000/getUsers/" + sessionStorage.getItem("email"))
+      .get("http://localhost:5000/users/" + sessionStorage.getItem("email"))
       .then(response => {
         console.log(response.data.result);
         this.setState({ userList: response.data.result });
@@ -54,7 +54,7 @@ class Users extends Component {
   componentDidMount() {
     this.getVendor();
     this.getProfile();
-    // this.getUsers();
+    this.getUsers();
   }
 
   onSelectNewTab = index => {

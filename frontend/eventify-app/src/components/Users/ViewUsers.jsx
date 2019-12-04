@@ -49,9 +49,9 @@ class ViewUsers extends Component {
   render() {
     let table, header;
 
-    if (!this.state.userList.length) header = <p>No registered participants</p>;
+    if (!this.props.userList.length) header = <p>No registered participants</p>;
     else {
-      table = this.state.userList.map((currUser, index) => {
+      table = this.props.userList.map((currUser, index) => {
         return (
           <tr key={index}>
             <td>{currUser.first_name}</td>

@@ -26,7 +26,10 @@ class UserCreate extends Component {
     this.setState({ event_name: name });
 
     axios.get("http://localhost:5000/getOrganizer/" + name).then(response => {
-      console.log(response);
+      if (response.data.message == "Report Found") {
+        console.log(response, response.data.result[0].email);
+        this.setState({ organizer_id: response.data.result[0].email });
+      }
     });
   }
 
@@ -51,7 +54,6 @@ class UserCreate extends Component {
     };
 
     axios.post("http://localhost:5000/addUser", data).then(response => {
-      alert(response.data.message);
       if (response.data.message === "User added successfully") {
         this.setState({ successModal: true });
         this.resetForm();
