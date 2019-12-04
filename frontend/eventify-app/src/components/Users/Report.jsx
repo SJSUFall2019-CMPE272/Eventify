@@ -124,10 +124,10 @@ class Report extends Component {
                     }
                     if(!e.length){
                         e = [
-                            { label: currObject.company_name, y: sum/countc }
+                            { label: currObject.company_name, y: Math.ceil(sum/countc) }
                         ];
                     }else{
-                        e.push({ label: currObject.company_name, y: sum/countc });
+                        e.push({ label: currObject.company_name, y: Math.ceil(sum/countc) });
                     }
                 }
                 else if(currObject.vendor_type==="Speaker"){
@@ -147,10 +147,10 @@ class Report extends Component {
                     }
                     if(!f.length){
                         f = [
-                            { label: currObject.vendor_name+" ("+currObject.company_name+")", y: sum/countd }
+                            { label: currObject.vendor_name+" ("+currObject.company_name+")", y: Math.ceil(sum/countd) }
                         ];
                     }else{
-                        f.push({ label: currObject.vendor_name+" ("+currObject.company_name+")", y: sum/countd });
+                        f.push({ label: currObject.vendor_name+" ("+currObject.company_name+")", y: Math.ceil(sum/countd) });
                     }
                 }
             });
