@@ -28,7 +28,7 @@ class Home extends Component {
     return (
       <div className="home-wrapper">
         <div className="home-container">
-          <div class="container">
+          <div className="container">
             <Carousel
               infiniteLoop={true}
               autoPlay={true}
@@ -46,14 +46,14 @@ class Home extends Component {
                 <img src={require("../../assets/images/bg2.jpg")} />
               </div>
             </Carousel>
-            <header class="jumbotron my-4 flex">
-              <div class="display-3 col-sm-4">
+            <header className="jumbotron my-4 flex">
+              <div className="display-3 col-sm-4">
                 <img
-                  class=" w-100"
+                  className=" w-100"
                   src={require("../../assets/images/image.png")}
                 />
               </div>
-              <div class="lead col-sm-8">
+              <div className="lead col-sm-8">
                 <h2>End-To-End Event Management. Reimagined.</h2>
                 Make your events & conferences more successful than ever before,
                 with Eventify - an event management platform. Discover the
@@ -61,15 +61,15 @@ class Home extends Component {
               </div>
             </header>
 
-            <div class="row text-center">
-              <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
+            <div className="row text-center">
+              <div className="col-lg-3 col-md-6 mb-4">
+                <div className="card h-100">
                   <div className="card-header">
                     <FontAwesomeIcon icon={faTasks}></FontAwesomeIcon>
                   </div>
-                  <div class="card-body">
-                    <h4 class="card-title">Efficient Event Management</h4>
-                    <p class="card-text">
+                  <div className="card-body">
+                    <h4 className="card-title">Efficient Event Management</h4>
+                    <p className="card-text">
                       Managing numerous vendors and speakers participating in
                       the events.
                     </p>
@@ -77,15 +77,15 @@ class Home extends Component {
                 </div>
               </div>
 
-              <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
+              <div className="col-lg-3 col-md-6 mb-4">
+                <div className="card h-100">
                   <div className="card-header">
                     <FontAwesomeIcon icon={faStreetView}></FontAwesomeIcon>
                   </div>
 
-                  <div class="card-body">
-                    <h4 class="card-title">Track Attendees</h4>
-                    <p class="card-text">
+                  <div className="card-body">
+                    <h4 className="card-title">Track Attendees</h4>
+                    <p className="card-text">
                       Stay informed about visitor counts, the stalls they are
                       visiting, time spent at various keynotes.
                     </p>
@@ -93,14 +93,14 @@ class Home extends Component {
                 </div>
               </div>
 
-              <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
+              <div className="col-lg-3 col-md-6 mb-4">
+                <div className="card h-100">
                   <div className="card-header">
                     <FontAwesomeIcon icon={faFileContract}></FontAwesomeIcon>
                   </div>
-                  <div class="card-body">
-                    <h4 class="card-title">Lead Generation</h4>
-                    <p class="card-text">
+                  <div className="card-body">
+                    <h4 className="card-title">Lead Generation</h4>
+                    <p className="card-text">
                       Check out visual representations of event attendee
                       analytics.
                     </p>
@@ -108,14 +108,14 @@ class Home extends Component {
                 </div>
               </div>
 
-              <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
+              <div className="col-lg-3 col-md-6 mb-4">
+                <div className="card h-100">
                   <div className="card-header">
                     <FontAwesomeIcon icon={faRoute}></FontAwesomeIcon>
                   </div>
-                  <div class="card-body">
-                    <h4 class="card-title">Convenient User Navigation</h4>
-                    <p class="card-text">
+                  <div className="card-body">
+                    <h4 className="card-title">Convenient User Navigation</h4>
+                    <p className="card-text">
                       Providing information know about a particular stall to
                       attendees without spending much time.
                     </p>
@@ -124,13 +124,13 @@ class Home extends Component {
               </div>
             </div>
 
-            <header class="jumbotron flex bottom-jum">
-              <div class="lead col-sm-8">
+            <header className="jumbotron flex bottom-jum">
+              <div className="lead col-sm-8">
                 <h3>Insightful Analytics</h3>
                 Custom-generated, in-depth analytics to track interactions,
                 segregations, and other updates.
               </div>
-              <div class="display-3 col-sm-4">
+              <div className="display-3 col-sm-4">
                 <img src={require("../../assets/images/analytics.png")} />
               </div>
             </header>

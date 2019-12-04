@@ -28,7 +28,10 @@ class AddEvent extends Component {
 
   onRegister = e => {
     const form = e.currentTarget;
-    if (form.checkValidity() === false) {
+    if (
+      form.checkValidity() === false ||
+      this.state.event_date_to < this.state.event_date_from
+    ) {
       e.preventDefault();
       e.stopPropagation();
       this.setState({ validated: true });
@@ -66,7 +69,8 @@ class AddEvent extends Component {
       phone_num: "",
       event_name: "",
       event_desc: "",
-      event_location: ""
+      event_location: "",
+      validated: false
     });
   }
 
