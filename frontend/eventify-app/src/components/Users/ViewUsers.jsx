@@ -34,6 +34,8 @@ class ViewUsers extends Component {
 
   updateRfid = e => {
     e.preventDefault();
+    console.log("rfidddddd",this.state.rfidNumber);
+    console.log("rfidddddd",this.state.email);
     let data = {
       rfid_number: this.state.rfidNumber,
       email: this.state.email

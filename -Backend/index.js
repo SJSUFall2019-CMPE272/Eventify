@@ -498,3 +498,14 @@ app.get('/users/:organizer_id', function(req,res){
         }
     })
 });
+
+//organizer update user's rfid id
+app.post('/updateRfid',function(req,res){
+    console.log("organizer update user's rfid id", req.body)
+    User.findOneAndUpdate({email:req.body.email},{
+        rfid_id:req.body.rfid_number
+    }).then(user =>{
+        console.log("Updated");
+        res.json({message:"Profile Updated"});
+    }).catch(err => res.status(400).json(err));
+});

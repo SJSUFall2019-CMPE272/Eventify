@@ -33,7 +33,9 @@ class EditEvent extends Component {
     date: "",
     idSelected: "",
     statsModal: false,
-    arr:[]
+    arr:[],
+    topfivestall:[],
+    topfivespeaker:[]
   };
 
   editModalClose = () => {
@@ -86,7 +88,7 @@ class EditEvent extends Component {
   };
 
   statsClose = () => {
-    this.setState({ statsModal: false });
+    this.setState({ statsModal: false , arr:[], topfivestall:[], topfivespeaker:[]});
   };
 
   onDelete = e => {
@@ -157,6 +159,58 @@ class EditEvent extends Component {
     }
 
       });
+
+      axios
+      .get(
+        "http://localhost:5000/report/topten/" + e
+      )
+      .then(response => {
+        console.log(response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+        let b = [];
+        response.data.result.map((currVendor, index) => {
+          console.log(currVendor.visitors.length);
+          console.log(currVendor.company_name);
+          if (!b.length) {
+            b = [
+              { y: currVendor.visitors.length, label: currVendor.company_name }
+            ];
+          } else {
+            b.push({ y: currVendor.visitors.length, label: currVendor.company_name });
+          }
+        });
+        this.setState({ topfivestall: b });
+    }
+
+      });
+
+      axios
+    .get(
+      "http://localhost:5000/report/toptenspeakers/" + e
+    )
+    .then(response => {
+      console.log(response.data.result);
+      if(response.data.result.length===0){
+      }
+      else{
+      let b = [];
+      response.data.result.map((currVendor, index) => {
+        console.log(currVendor.visitors.length);
+        console.log(currVendor.company_name);
+        if (!b.length) {
+          b = [
+            { y: currVendor.visitors.length, label: currVendor.company_name }
+          ];
+        } else {
+          b.push({ y: currVendor.visitors.length, label: currVendor.company_name });
+        }
+      });
+      this.setState({ topfivespeaker: b });
+    }
+    });
 
   };
   render() {
@@ -245,6 +299,87 @@ class EditEvent extends Component {
           dataPoints: this.state.arr
       }]
   }
+  const options1 = {
+    animationEnabled: true,
+    exportEnabled: false,
+    theme: "light1", // "light1", "dark1", "dark2"
+    title: {
+      text: "Top Five Stalls",
+      fontFamily:"Segoe UI"
+    },subtitles:[
+      {
+          text: "Number of attendees",
+          fontSize: 15,
+          fontFamily:"Segoe UI"
+      }
+      ],
+    data: [
+      {
+        type: "pie",
+        indexLabel: "{label}: {y}",
+        startAngle: -90,
+        dataPoints: this.state.topfivestall
+      }
+    ]
+  };
+
+  const options2 = {
+    animationEnabled: true,
+    exportEnabled: false,
+    theme: "light1", // "light1", "dark1", "dark2"
+    title: {
+      text: "Top Five Speakers",
+      fontFamily:"Segoe UI"
+    },
+    subtitles:[
+        {
+            text: "Number of attendees",
+            fontSize: 15,
+            fontFamily:"Segoe UI"
+        }
+        ],
+    data: [
+      {
+        type: "pie",
+        indexLabel: "{label}: {y}",
+        startAngle: -90,
+        dataPoints: this.state.topfivespeaker
+      }
+    ]
+  };
+
+let chart,top5,top52;
+  if(this.state.arr.length===0){
+    chart=<center><h3></h3></center>
+  }
+  else{
+    chart=<p>
+    <CanvasJSChart options={options} />
+    </p>
+
+  }
+
+  if(this.state.topfivestall.length===0){
+    top5= <center><h3></h3></center>
+  }else{
+    top5=<p>
+    <CanvasJSChart options={options1} />
+    </p>
+
+  }
+
+  if(this.state.topfivespeaker.length===0){
+    top52= <center><h3></h3></center>
+  }else{
+    top52=<p>
+    <CanvasJSChart options={options2} />
+    </p>
+  }
+
+  if(this.state.arr.length===0 && this.state.topfivestall.length===0 && this.state.topfivespeaker.length===0){
+    chart= <center><h3>No data available yet</h3></center>
+  }
+  
 
 
 
@@ -482,9 +617,9 @@ class EditEvent extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>
-            <CanvasJSChart options={options} />
-            </p>
+            {chart}
+            {top5}
+            {top52}
           </Modal.Body>
         </Modal>
       </React.Fragment>

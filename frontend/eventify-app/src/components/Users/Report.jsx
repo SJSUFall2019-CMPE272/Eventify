@@ -413,6 +413,14 @@ class Report extends Component {
 
       }
 
+      let chart;
+  if(this.state.arr.length===0){
+    chart= <center><h3>No data available yet</h3></center>
+  }else{
+    chart=<div className="col-sm-6 margin-center"><CanvasJSChart options={options6} /></div>
+
+  }
+
       
 
     return (
@@ -427,7 +435,7 @@ class Report extends Component {
         <center><h1>Speakers</h1></center><hr/><br/>
         {chartspeaker}<br/><div class="border-div"></div>
         <center><h1>Attendees</h1></center><hr/><br/>
-        <div className="col-sm-6 margin-center"><CanvasJSChart options={options6} /></div>
+        {chart}
         {/* {this.state.attendedusercount} */}
         </div>
       </div>
