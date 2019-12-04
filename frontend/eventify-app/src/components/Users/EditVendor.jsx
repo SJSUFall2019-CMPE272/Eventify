@@ -90,6 +90,10 @@ class EditVendor extends Component {
     });
   };
 
+  changeRadio(e) {
+    this.setState({ vendor_type: e.target.value });
+  }
+
   render() {
     console.log(this.props.vendorList);
     let table, header;
@@ -149,6 +153,22 @@ class EditVendor extends Component {
         </Table>
       );
     }
+
+    let radios = ["Speaker", "Stall"].map((key, index) => {
+      return (
+        <Form.Check
+          custom
+          type="radio"
+          id={`custom-radio-` + index}
+          label={key}
+          name="vendortype"
+          value={key}
+          key={key}
+          onClick={e => this.changeRadio(e)}
+          checked={this.state.vendor_type == key}
+        />
+      );
+    });
 
     return (
       <React.Fragment>
@@ -280,15 +300,7 @@ class EditVendor extends Component {
                 </Form.Label>
 
                 <Col sm={8}>
-                  <Form.Control
-                    required
-                    type="text"
-                    placeholder="Vendor Type"
-                    value={this.state.vendor_type}
-                    onChange={e =>
-                      this.setState({ vendor_type: e.target.value })
-                    }
-                  />
+                  {radios}
                   <Form.Control.Feedback type="invalid">
                     Please enter vendor type
                   </Form.Control.Feedback>
