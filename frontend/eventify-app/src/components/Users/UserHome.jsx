@@ -5,10 +5,17 @@ import Row from "react-bootstrap/Row";
 
 class UserHome extends Component {
   state = {};
+
+  componentDidUpdate(prevProps) {
+    this.render();
+  }
+
   render() {
-    console.log(this.props.profile);
+    let name = this.props.profile.event_name
+      ? this.props.profile.event_name.split(" ").join("_")
+      : "";
     return (
-      <div className="tab-content user-profile">
+      <div className="tab-content user-profile pb-5">
         <h1 className="header">Welcome to Eventify! </h1>
         <div class="border-div"></div>
         <p>
@@ -87,11 +94,7 @@ class UserHome extends Component {
               Event Description:
             </Form.Label>
             <Col sm="6">
-              <Form.Control
-                plaintext
-                readOnly
-                defaultValue={this.props.profile.event_desc}
-              />
+              <Form.Label>{this.props.profile.event_desc}</Form.Label>
             </Col>
           </Form.Group>
 
@@ -116,9 +119,15 @@ class UserHome extends Component {
               <Form.Control
                 plaintext
                 readOnly
-                defaultValue={new Date(
-                  this.props.profile.event_date_from
-                ).toLocaleDateString()}
+                defaultValue={
+                  new Date(
+                    this.props.profile.event_date_from
+                  ).toLocaleDateString() == "Invalid Date"
+                    ? ""
+                    : new Date(
+                        this.props.profile.event_date_from
+                      ).toLocaleDateString()
+                }
               />
             </Col>
           </Form.Group>
@@ -131,13 +140,27 @@ class UserHome extends Component {
               <Form.Control
                 plaintext
                 readOnly
-                defaultValue={new Date(
-                  this.props.profile.event_date_to
-                ).toLocaleDateString()}
+                defaultValue={
+                  new Date(
+                    this.props.profile.event_date_to
+                  ).toLocaleDateString() == "Invalid Date"
+                    ? ""
+                    : new Date(
+                        this.props.profile.event_date_to
+                      ).toLocaleDateString()
+                }
               />
             </Col>
           </Form.Group>
         </Form>
+
+        <div className="col-sm-6 margin-center">
+          Please use the following link to register users to your event:
+          <br />
+          <a href={"http://54.153.56.167/createuser/" + name}>
+            {"http://54.153.56.167/createuser/" + name}
+          </a>
+        </div>
       </div>
     );
   }

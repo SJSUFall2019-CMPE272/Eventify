@@ -22,7 +22,7 @@ class UserCreate extends Component {
   };
 
   componentDidMount() {
-    const name = this.props.match.params.id;
+    const name = this.props.match.params.id.split("_").join(" ");
     this.setState({ event_name: name });
 
     axios.get("http://localhost:5000/getOrganizer/" + name).then(response => {
