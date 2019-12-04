@@ -288,7 +288,22 @@ app.post('/deleteVendor', function(req,res){
 
 //get organizer id for given organizer name
 app.get('/getOrganizer/:event_name', function(req,res){
-    Report.find({event_name:req.params.event_name}).then(report =>{
+    Organizer.find({event_name:req.params.event_name}).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+//organizers get all registered users
+app.get('/users/:organizer_id', function(req,res){
+    User.find({organizer_id:req.params.organizer_id}).then(report =>{
         if(!report.length){
             console.log("no report");
             return res.json({message:"No report Found", result:[]});
@@ -456,6 +471,22 @@ app.get('/report/:email', function(req,res){
         if(!report.length){
             console.log("no report");
             return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+
+//organizer get report - all vendor data
+app.get('/usersAttended/:email', function(req,res){
+    User.find({organizer_id:req.params.email, rfid_id:{$ne:" "}}).count().then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:''});
         }
         else{
             console.log("report");
