@@ -308,13 +308,14 @@ class Report extends Component {
       }else{
       chartstall=  <React.Fragment><div className="flex">
         <div className="col-sm-6">
-        <CanvasJSChart options={options} />
-        </div>
-        <div className="col-sm-6">
         <CanvasJSChart options={options2} />
         </div>
+        <div className="col-sm-6">
+        <CanvasJSChart options={options4} />
+        </div>
         </div><br/><br/>
-        <div className="col-sm-6 margin-center"><CanvasJSChart options={options4} /></div>
+        <div className="col-sm-6 margin-center">
+            <CanvasJSChart options={options} /></div>
         </React.Fragment>
         
       }
@@ -324,13 +325,13 @@ class Report extends Component {
       }else{
         chartspeaker=<React.Fragment><div className="flex">
         <div className="col-sm-6">
-        <CanvasJSChart options={options1} />
-        </div>
-        <div className="col-sm-6">
         <CanvasJSChart options={options3} />
         </div>
+        <div className="col-sm-6">
+        <CanvasJSChart options={options5} />
+        </div>
         </div><br/><br/>
-        <div className="col-sm-6 margin-center"><CanvasJSChart options={options5} /></div></React.Fragment>
+        <div className="col-sm-6 margin-center"><CanvasJSChart options={options1} /></div></React.Fragment>
 
       }
 

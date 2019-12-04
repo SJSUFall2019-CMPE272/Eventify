@@ -7,10 +7,6 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
-    event_name: {
-        type: String,
-        required: true
-      },
     first_name: {
       type: String,
       required: true
@@ -31,7 +27,7 @@ const UserSchema = new Schema(
     },
     phone_num: String,
     rfid_id: {
-      type: Number,
+      type: String,
       required: true
     },
   },

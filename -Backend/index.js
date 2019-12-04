@@ -285,6 +285,22 @@ app.post('/deleteVendor', function(req,res){
     })
 }); 
 
+
+//get organizer id for given organizer name
+app.get('/getOrganizer/:event_name', function(req,res){
+    Report.find({event_name:req.params.event_name}).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
 //add user through online form
 app.post('/addUser', function(req,res){   
     User.findOne({ email: req.body.email }).then(user => {
@@ -299,15 +315,14 @@ app.post('/addUser', function(req,res){
                 if (err) throw err;
                 password = hash;
             const user = new User({
-                "organizer_id":req.body.organizer_id, 
-                "event_name":req.body.event_name,
+                "organizer_id":req.body.organizer_id,
                 "first_name": req.body.first_name, 
                 "last_name":req.body.last_name,
                 "company_name":req.body.company_name, 
                 "email":req.body.email,
                 "password":password,
                 "phone_num":req.body.phone_num,
-                "rfid_id":""
+                "rfid_id":" "
             });
 
             user.save().then(()=>{
