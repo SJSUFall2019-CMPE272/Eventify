@@ -12,7 +12,7 @@ class AdminHome extends Component {
   generateReport = e => {
     e.preventDefault();
     console.log("in update function");
-    axios.get("http://localhost:3050/createreport").then(response => {
+    axios.get("http://localhost:5000/createreport").then(response => {
       console.log(response.data);
       this.setState({successModal:true});
     });
