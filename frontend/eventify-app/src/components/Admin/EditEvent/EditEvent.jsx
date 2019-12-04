@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import * as CanvasJSReact from "../../canvasjs.react/canvasjs.react";
+import { CanvasJSChart } from "../../canvasjs.react/canvasjs.react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -30,7 +32,8 @@ class EditEvent extends Component {
     event_location: "",
     date: "",
     idSelected: "",
-    statsModal: false
+    statsModal: false,
+    arr:[]
   };
 
   editModalClose = () => {
@@ -99,6 +102,63 @@ class EditEvent extends Component {
     });
   };
 
+  onStats = e => {
+    this.setState({ statsModal: true });
+    let arr=[]
+    axios
+      .get(
+        "http://localhost:5000/users/" + e
+      )
+      .then(response => {
+        console.log(response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+        let count=0;
+            response.data.result.map((currUser, index) => {
+                count++;
+            });
+
+            if(!arr.length){
+                arr = [
+                    { label: "Total registered attendees", y: count }
+                ];
+            }else{
+                arr.push({ label: "Total registered attendees", y: count });
+            }
+            axios
+      .get(
+        "http://localhost:5000/usersAttended/" + e
+      )
+      .then(response => {
+        console.log(response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+        let count1=0;
+            response.data.result.map((currUser, index) => {
+                count1++;
+            });
+            
+            if(!arr.length){
+                arr = [
+                    { label: "Attendees who came to the event", y: count1}
+                ];
+            }else{
+                arr.push({ label: "Attendees who came to the event", y: count1 });
+            }
+            this.setState({arr:arr});
+            console.log("arrrrrrrrrrrrrrr", this.state.arr);
+    }
+
+      });
+    }
+
+      });
+
+  };
   render() {
     console.log(this.props.eventList);
     let table, header;
@@ -128,7 +188,7 @@ class EditEvent extends Component {
             <td>
               <Button
                 variant="outline-danger"
-                onClick={e => this.deleteOpen(e)}
+                onClick={e => {this.setState({deleteModal: true, idSelected: currEvent.email})}}
               >
                 <FontAwesomeIcon icon={faTrashAlt} />
                 Delete
@@ -138,7 +198,7 @@ class EditEvent extends Component {
             <td>
               <Button
                 variant="outline-info"
-                onClick={e => this.setState({ statsModal: true })}
+                onClick={e => this.onStats(currEvent.email)}
               >
                 <FontAwesomeIcon icon={faChartLine} />
                 Stats
@@ -165,6 +225,29 @@ class EditEvent extends Component {
         </Table>
       );
     }
+
+
+    const options = {
+      animationEnabled: true,
+      theme: "light1",
+      title: {
+          text: "Total registered attendees vs attendees who came to the event",
+          fontFamily:"Segoe UI"
+      },
+      axisY: {
+      title: "Number of Attendees",
+      },
+      data: [{
+          type: "column",
+          indexLabel: "{y}",
+          labelAngle: 180,		
+          indexLabelFontColor: "black",
+          dataPoints: this.state.arr
+      }]
+  }
+
+
+
 
     return (
       <React.Fragment>
@@ -399,11 +482,8 @@ class EditEvent extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Centered Modal</h4>
             <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-              ac consectetur ac, vestibulum at eros.
+            <CanvasJSChart options={options} />
             </p>
           </Modal.Body>
         </Modal>

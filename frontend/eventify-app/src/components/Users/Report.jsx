@@ -20,6 +20,7 @@ class Report extends Component {
     stall:false,
     countc:[],
     countd:[],
+    arr:[]
   };
 
   getTopFiveStalls() {
@@ -163,10 +164,68 @@ class Report extends Component {
   }
 
 
+  getUserData(){
+    let arr=[]
+    axios
+      .get(
+        "http://localhost:5000/users/" + sessionStorage.getItem("email")
+      )
+      .then(response => {
+        console.log(response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+        let count=0;
+            response.data.result.map((currUser, index) => {
+                count++;
+            });
+
+            if(!arr.length){
+                arr = [
+                    { label: "Total registered attendees", y: count }
+                ];
+            }else{
+                arr.push({ label: "Total registered attendees", y: count });
+            }
+            axios
+      .get(
+        "http://localhost:5000/usersAttended/" + sessionStorage.getItem("email")
+      )
+      .then(response => {
+        console.log(response.data.result);
+        
+        if(response.data.result.length===0){
+        }
+        else{
+        let count1=0;
+            response.data.result.map((currUser, index) => {
+                count1++;
+            });
+            
+            if(!arr.length){
+                arr = [
+                    { label: "Attendees who came to the event", y: count1}
+                ];
+            }else{
+                arr.push({ label: "Attendees who came to the event", y: count1 });
+            }
+            this.setState({arr:arr});
+    }
+
+      });
+    }
+
+      });
+
+      
+  }
+
   componentDidMount() {
     this.getTopFiveStalls();
     this.getTopFiveSpeakers();
     this.getAllVendorData();
+    this.getUserData();
   }
 
   render() {
@@ -300,6 +359,25 @@ class Report extends Component {
         }]
     }
 
+    const options6 = {
+        animationEnabled: true,
+        theme: "light1",
+        title: {
+            text: "Total registered attendees vs attendees who came to the event",
+            fontFamily:"Segoe UI"
+        },
+        axisY: {
+        title: "Number of Attendees",
+        },
+        data: [{
+            type: "column",
+            indexLabel: "{y}",
+            labelAngle: 180,		
+            indexLabelFontColor: "black",
+            dataPoints: this.state.arr
+        }]
+    }
+
 
 
       if(this.state.stall===false && this.state.timereportstall===false ){
@@ -341,14 +419,16 @@ class Report extends Component {
       <div className="tab-content">
         <div className="tab-header">
           <h1 className="header">Reports</h1> <div class="border-div"></div>
-          <p>Here you can view graphs and reports.</p>
         </div>
-        <div className="tab-body"><hr/>
+        <div className="tab-body">
         <center><h1>Vendors</h1></center><hr/><br/>
-        {chartstall}<br/><hr/>
+        {chartstall}<br/><div class="border-div"></div>
 
         <center><h1>Speakers</h1></center><hr/><br/>
-        {chartspeaker}
+        {chartspeaker}<br/><div class="border-div"></div>
+        <center><h1>Attendees</h1></center><hr/><br/>
+        <div className="col-sm-6 margin-center"><CanvasJSChart options={options6} /></div>
+        {/* {this.state.attendedusercount} */}
         </div>
       </div>
     );

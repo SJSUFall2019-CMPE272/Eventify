@@ -301,20 +301,7 @@ app.get('/getOrganizer/:event_name', function(req,res){
     })
 });
 
-//organizers get all registered users
-app.get('/users/:organizer_id', function(req,res){
-    User.find({organizer_id:req.params.organizer_id}).then(report =>{
-        if(!report.length){
-            console.log("no report");
-            return res.json({message:"No report Found", result:[]});
-        }
-        else{
-            console.log("report");
-            console.log(report);
-            res.json({message:"Report Found", result:report});
-        }
-    })
-});
+
 
 //add user through online form
 app.post('/addUser', function(req,res){   
@@ -481,12 +468,28 @@ app.get('/report/:email', function(req,res){
 });
 
 
-//organizer get report - all vendor data
+//organizer get all users who attended
 app.get('/usersAttended/:email', function(req,res){
-    User.find({organizer_id:req.params.email, rfid_id:{$ne:" "}}).count().then(report =>{
+    console.log("dcyvsdcvsdiucviudsvcuisdvciuvsdiucvsdiucvdsiuc");
+    User.find({organizer_id:req.params.email, rfid_id:{$ne:" "}}).then(report =>{
         if(!report.length){
             console.log("no report");
             return res.json({message:"No report Found", result:''});
+        }
+        else{
+            console.log("report");
+            console.log(report);
+            res.json({message:"Report Found", result:report});
+        }
+    })
+});
+
+//organizers get all registered users
+app.get('/users/:organizer_id', function(req,res){
+    User.find({organizer_id:req.params.organizer_id}).then(report =>{
+        if(!report.length){
+            console.log("no report");
+            return res.json({message:"No report Found", result:[]});
         }
         else{
             console.log("report");
