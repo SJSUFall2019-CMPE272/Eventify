@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ReportSchema = new Schema(
   {
-    organizer_id:String,
+    organizer_id: String,
     vendor_id: Number,
-    company_name:String,
+    company_name: String,
     vendor_name: String,
+    vendor_type: String,
     visitors: [
       {
         card_number: String,
