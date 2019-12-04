@@ -12,7 +12,8 @@ import {
   faTimes,
   faCheck,
   faEdit,
-  faTrashAlt
+  faTrashAlt,
+  faChartLine
 } from "@fortawesome/free-solid-svg-icons";
 
 class EditEvent extends Component {
@@ -28,7 +29,8 @@ class EditEvent extends Component {
     event_desc: "",
     event_location: "",
     date: "",
-    idSelected: ""
+    idSelected: "",
+    statsModal: false
   };
 
   editModalClose = () => {
@@ -80,6 +82,10 @@ class EditEvent extends Component {
     this.setState({ deleteModal: false });
   };
 
+  statsClose = () => {
+    this.setState({ statsModal: false });
+  };
+
   onDelete = e => {
     console.log("delete function call");
     e.preventDefault();
@@ -105,12 +111,11 @@ class EditEvent extends Component {
         return (
           <tr key={index}>
             <td>{currEvent.event_name}</td>
-            <td>{currEvent.first_name}</td>
             <td>{currEvent.phone_num}</td>
             <td>{currEvent.event_location}</td>
             <td>{new Date(currEvent.event_date_from).toLocaleDateString()}</td>
             <td>{new Date(currEvent.event_date_to).toLocaleDateString()}</td>
-            
+
             <td>
               <Button
                 variant="outline-primary"
@@ -123,11 +128,20 @@ class EditEvent extends Component {
             <td>
               <Button
                 variant="outline-danger"
-                value={currEvent.email}
                 onClick={e => this.deleteOpen(e)}
               >
                 <FontAwesomeIcon icon={faTrashAlt} />
                 Delete
+              </Button>
+            </td>
+
+            <td>
+              <Button
+                variant="outline-info"
+                onClick={e => this.setState({ statsModal: true })}
+              >
+                <FontAwesomeIcon icon={faChartLine} />
+                Stats
               </Button>
             </td>
           </tr>
@@ -138,13 +152,13 @@ class EditEvent extends Component {
           <thead>
             <tr>
               <th>Event Name</th>
-              <th>First Name</th>
               <th>Phone no</th>
               <th>Location</th>
               <th>Date From</th>
               <th>Date To</th>
               <th>Edit</th>
               <th>Delete</th>
+              <th>Stats</th>
             </tr>
           </thead>
           <tbody>{table}</tbody>
@@ -370,6 +384,28 @@ class EditEvent extends Component {
               No
             </Button>
           </Modal.Footer>
+        </Modal>
+
+        <Modal
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={this.state.statsModal}
+          onHide={this.statsClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Event Statistics
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Centered Modal</h4>
+            <p>
+              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+              ac consectetur ac, vestibulum at eros.
+            </p>
+          </Modal.Body>
         </Modal>
       </React.Fragment>
     );
