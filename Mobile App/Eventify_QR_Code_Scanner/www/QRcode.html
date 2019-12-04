@@ -8,27 +8,21 @@
       name="viewport"
       content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"
     />
+    
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
+      href="bs/css/bootstrap.min.css"
     />
     <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
+      src="js/jquery-3.4.1.min.js"
     ></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
     ></script>
     <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
+      src="bs/js/bootstrap.min.js"
     ></script>
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
     <title>QRCode Reader APP</title>
     <style>
       .topnav {
@@ -61,14 +55,23 @@
   </head>
 
   <body>
-    <div class="topnav">
-      <a class="active" onclick="window.location.href='./index.html'">LOGOUT</a>
+    <video autoplay muted loop id="myVideo">
+        <source src="img/video.mp4" type="video/mp4" />
+    </video>
+    <div class="navbar-wrapper flex">
+        <div class="logo">
+        <img src="img/logo.png" alt="logo" />
+        </div>
     </div>
-
-    <div data-role="page" id="home">
-      <div data-role="header">
-        <center><h1>EVENTIFY</h1></center>
-      </div>
+    <div class="app-wrapper">
+        <div class="card col-sm-12">
+            <center><h2>QR Code Scan</h2></center>
+            <div class="border-div"></div>
+            <p>Scan the QR Code placed at multiple locations to get details about the stall / speaker</p>
+            <br>
+            <button class="btn btn-primary" id="sendBtn">Scan !</button>
+        </div>
+    </div>
 
       <div data-role="main" class="ui-content">
         <p>
@@ -102,7 +105,7 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script>
-      function scan() {
+        $("#sendBtn").click(function() {
         cordova.plugins.barcodeScanner.scan(
           function(result) {
             if (!result.cancelled) {
@@ -116,7 +119,22 @@
             alert("Scanning failed: " + error);
           }
         );
-      }
+        });
+    //   function scan() {
+    //     cordova.plugins.barcodeScanner.scan(
+    //       function(result) {
+    //         if (!result.cancelled) {
+    //           if (result.format == "QR_CODE") {
+    //             var value = result.text;
+    //             window.open(result.text, "_blank", "location=yes");
+    //           }
+    //         }
+    //       },
+    //       function(error) {
+    //         alert("Scanning failed: " + error);
+    //       }
+    //     );
+    //   }
     </script>
   </body>
 </html>

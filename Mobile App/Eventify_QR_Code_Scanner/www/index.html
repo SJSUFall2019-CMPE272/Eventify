@@ -86,7 +86,6 @@
     <script type="text/javascript">
       $("#sendBtn").click(function() {
         var form = $("#form").serialize();
-        console.log("hghsdhggh", form);
 
         $.post("http://13.57.26.201:5000/login", form, function(response) {
           if (response.authFlag) {
