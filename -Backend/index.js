@@ -198,7 +198,7 @@ app.post('/events/update',function(req,res){
                     event_desc: req.body.event_desc
                 }).then(organizer =>{
                     console.log("Updated");
-                    res.json({message:"Profile Updated"});
+                    res.json({message:"Profile Updated",first_name:req.body.first_name});
                 }).catch(err => res.status(400).json(err));
         }
     })
