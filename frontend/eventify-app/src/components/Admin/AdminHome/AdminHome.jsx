@@ -14,7 +14,7 @@ class AdminHome extends Component {
     console.log("in update function");
     axios.get("http://localhost:5000/createreport").then(response => {
       console.log(response.data);
-      this.setState({successModal:true});
+      this.setState({ successModal: true });
     });
   };
 
@@ -33,39 +33,42 @@ class AdminHome extends Component {
           <br />
           In the view events tab, you can view stats for various events
           available.
-          <br/>
-          <br/><br/><Button
-                variant="outline-success"
-                onClick={e => {
-                  this.generateReport(e)
-                }}
-              >
-                Generate Report
-              </Button>
+          <br />
+          <br /> Press the button below to generate reports.
+          <br />
+          <br />
+          <br />
+          <Button
+            variant="outline-success"
+            onClick={e => {
+              this.generateReport(e);
+            }}
+          >
+            Generate Report
+          </Button>
         </div>
         <React.Fragment>
-        <Modal
-          className="confirm-modal"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          show={this.state.successModal}
-          onHide={this.successClose}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-              Success!
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>Report generated successfully!</h5>
-            <Button onClick={this.successClose} size="sm" variant="success">
-              Ok
-            </Button>
-          </Modal.Body>
-        </Modal>
+          <Modal
+            className="confirm-modal"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            show={this.state.successModal}
+            onHide={this.successClose}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                Success!
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h5>Report generated successfully!</h5>
+              <Button onClick={this.successClose} size="sm" variant="success">
+                Ok
+              </Button>
+            </Modal.Body>
+          </Modal>
         </React.Fragment>
       </div>
-      
     );
   }
 }
