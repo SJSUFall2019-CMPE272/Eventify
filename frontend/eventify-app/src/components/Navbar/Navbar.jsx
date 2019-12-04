@@ -194,7 +194,11 @@ class Navbar extends Component {
         <div
           className={
             "login-container flex pointer " +
-            (this.props.history.location.pathname == "/" ? "" : "hidden")
+            (["organizer", "admin"].indexOf(
+              sessionStorage.getItem("privileges")
+            ) > -1
+              ? "hidden"
+              : "")
           }
         >
           <div className="login-item flex ">
@@ -210,7 +214,11 @@ class Navbar extends Component {
         <div
           className={
             "login-container flex pointer " +
-            (this.props.history.location.pathname != "/" ? "" : "hidden")
+            (["organizer", "admin"].indexOf(
+              sessionStorage.getItem("privileges")
+            ) > -1
+              ? ""
+              : "hidden")
           }
         >
           <div

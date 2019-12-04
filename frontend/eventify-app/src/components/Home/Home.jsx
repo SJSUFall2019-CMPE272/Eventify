@@ -34,7 +34,7 @@ class Home extends Component {
             </div>
           </Carousel>
 
-          <div className="footer flex">
+          <div className="footer row flex">
             <div className="col-sm-3 footer-col">
               <div className="logo-img"></div>
               <div className="col-sm-12">
