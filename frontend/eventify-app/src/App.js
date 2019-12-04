@@ -6,6 +6,7 @@ import Admin from "./components/Admin/Admin";
 import Navbar from "./components/Navbar/Navbar";
 import videos from "./assets/video.mp4";
 import UserCreate from "./components/UserCreate/UserCreate";
+import Test from "./components/Test/Test";
 
 export default function App() {
   return (
@@ -18,7 +19,7 @@ export default function App() {
             <Route path="/admin" component={Admin} />
             <Route path="/userhome" component={Users} />
             <Route path="/createuser/:id" component={UserCreate} />
-            <Route path="/" component={Home} />
+            <Route path="/" component={Test} />
           </Switch>
         </div>
       </div>
