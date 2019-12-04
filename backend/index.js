@@ -104,8 +104,9 @@ app.get("/createreport", async function (req, res) {
         let organizer_id = document.organizer_id;
         let company_name = document.company_name;
         let vendor_type = document.vendor_type;
+        let vendor_name = document.first_name + " " + document.last_name;
         if (readerNum !== null && readerNum !== "" && readerNum !== undefined) {
-            newVendor = new Report({ vendor_id: readerNum, organizer_id: organizer_id, company_name: company_name, vendor_type: vendor_type });
+            newVendor = new Report({ vendor_id: readerNum, organizer_id: organizer_id, company_name: company_name, vendor_type: vendor_type, vendor_name: vendor_name });
             newVendor.save().then(async vendor => {
                 const custCursor = await Users.find();
                 let custDocument;
