@@ -48,10 +48,12 @@
     margin:auto;
 }
 
-.edit-vendor {
-    .btn {
-        width: 140px;
-    }
+@media only screen and (min-width: 1700px) {
+    .edit-vendor {
+        .btn {
+            width: 140px;
+        }
+    } 
 }
 
 .download-lead-container {
