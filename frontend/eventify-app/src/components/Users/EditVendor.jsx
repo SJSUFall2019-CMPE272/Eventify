@@ -135,7 +135,7 @@ class EditVendor extends Component {
         );
       });
       header = (
-        <Table striped bordered hover responsive>
+        <Table striped bordered hover responsive="sm">
           <thead>
             <tr>
               <th>RFID Reader ID</th>
@@ -172,7 +172,7 @@ class EditVendor extends Component {
 
     return (
       <React.Fragment>
-        <div className="tab-content">
+        <div className="tab-content edit-vendor">
           <div className="tab-header">
             <h1 className="header">Vendors</h1> <div class="border-div"></div>
             <p>
