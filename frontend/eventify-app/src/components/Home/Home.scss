@@ -6,8 +6,12 @@
     .home {
 
         &-container {
-            background: white;
+            background: rgba(255,255,255,0.4);
             position: relative;
+            padding-bottom: 2rem;
+            .container {
+                max-width: 1640px !important;
+            }
             .slider-wrapper {
                 img {
                     max-height: 60vh;  /* change this to whatever you want */
@@ -17,35 +21,54 @@
             .home-row {
                 height: 600px;
             }
-            .footer {
-                background: $bgColor;
-                color: white;
-                margin-top: 15px;
-                min-height: 10vh;
-                align-items: flex-start;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                padding: 15px;                
-                padding-bottom: 50px;
-                margin-left: 0;
-                &-col {
-                    padding: 15px;
 
-                    .logo-img {
-                        background: url('../../assets/images/logo.png');
-                        height: 60px;
-                        width: 170px;
-                        background-size: cover;
-                        background-repeat: no-repeat;
-                    }
-                    .icon-app {
-                        padding-top: 10px;
-                        font-size: 1.3rem;
-                        & > * {
-                            margin: 0 5px;
-                        }
-                    }
+            .card-header {
+                font-size: 7rem;
+                color: white;
+                background: $midBlue;
+            }
+
+            .card-body {
+                padding-bottom: 5.5rem;
+            }
+
+            .jumbotron {
+                .lead {
+                    font-size: 1.7rem;
+                }
+                &.bottom-jum {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    
+    .footer {
+        background: $bgColor;
+        color: white;
+        min-height: 10vh;
+        align-items: flex-start;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px;                
+        padding-bottom: 50px;
+        margin-left: 0;
+        &-col {
+            padding: 15px;
+
+            .logo-img {
+                background: url('../../assets/images/logo.png');
+                height: 60px;
+                width: 170px;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            .icon-app {
+                padding-top: 10px;
+                font-size: 1.3rem;
+                & > * {
+                    margin: 0 5px;
                 }
             }
         }

@@ -16,7 +16,7 @@ class Users extends Component {
     profile: {},
     userList: [],
     sidebarTabs: [
-      "Intro",
+      "Welcome",
       "Add Vendors",
       "View Vendors",
       "View Attendees",
