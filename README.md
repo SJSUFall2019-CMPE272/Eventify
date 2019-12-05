@@ -18,7 +18,7 @@ After the conclusion of the event, the system will generate a report for the org
 
 # Architecture Diagram:
 
-![Project](https://user-images.githubusercontent.com/44868546/66625784-93e90380-ebaa-11e9-9733-1dae0b8a44a2.jpg)
+![Project](Eventify.png)
 
 # Tech stack : 
 
@@ -33,7 +33,7 @@ After the conclusion of the event, the system will generate a report for the org
 * Akshit Ahuja - Data Modelling, Lead Generation APIs, LinkedIn API (Tentative- due to privacy policy)
 * Ayushman Mittal - All backend APIs for the application
 * Chaitanya Naik - All frontend related tasks for web application (for Organizers)
-* Naman Agrawal - All frontend related tasks for mobile application (for Attendees), Push Notifications with speaker details
+* Naman Agrawal - All frontend related tasks for mobile application (for Attendees), Push Notifications with speaker details ,Dockerization and cloud deployement
 
 # Design Thinking
 ## Personas
